@@ -1,0 +1,271 @@
+color:
+# RGB color table
+# Imported from https://www.rapidtables.com/web/color/RGB_Color.html
+    - id: black
+      hex: '000000'
+    - id: white
+      hex: 'FFFFFF'
+    - id: red
+      hex: 'FF0000'
+    - id: lime
+      hex: '00FF00'
+    - id: blue
+      hex: '0000FF'
+    - id: yellow
+      hex: 'FFFF00'
+    - id: cyan_aqua
+      hex: '00FFFF'
+    - id: magenta_fuchsia
+      hex: 'FF00FF'
+    - id: silver
+      hex: 'C0C0C0'
+    - id: gray
+      hex: '808080'
+    - id: maroon
+      hex: '800000'
+    - id: olive
+      hex: '808000'
+    - id: green
+      hex: '008000'
+    - id: purple
+      hex: '800080'
+    - id: teal
+      hex: '008080'
+    - id: navy
+      hex: '000080'
+    - id: dark_red
+      hex: '8B0000'
+    - id: brown
+      hex: 'A52A2A'
+    - id: firebrick
+      hex: 'B22222'
+    - id: crimson
+      hex: 'DC143C'
+    - id: tomato
+      hex: 'FF6347'
+    - id: coral
+      hex: 'FF7F50'
+    - id: indian_red
+      hex: 'CD5C5C'
+    - id: light_coral
+      hex: 'F08080'
+    - id: dark_salmon
+      hex: 'E9967A'
+    - id: salmon
+      hex: 'FA8072'
+    - id: light_salmon
+      hex: 'FFA07A'
+    - id: orange_red
+      hex: 'FF4500'
+    - id: dark_orange
+      hex: 'FF8C00'
+    - id: orange
+      hex: 'FFA500'
+    - id: gold
+      hex: 'FFD700'
+    - id: dark_golden_rod
+      hex: 'B8860B'
+    - id: golden_rod
+      hex: 'DAA520'
+    - id: pale_golden_rod
+      hex: 'EEE8AA'
+    - id: dark_khaki
+      hex: 'BDB76B'
+    - id: khaki
+      hex: 'F0E68C'
+    - id: yellow_green
+      hex: '9ACD32'
+    - id: dark_olive_green
+      hex: '556B2F'
+    - id: olive_drab
+      hex: '6B8E23'
+    - id: lawn_green
+      hex: '7CFC00'
+    - id: chartreuse
+      hex: '7FFF00'
+    - id: green_yellow
+      hex: 'ADFF2F'
+    - id: dark_green
+      hex: '006400'
+    - id: forest_green
+      hex: '228B22'
+    - id: lime_green
+      hex: '32CD32'
+    - id: light_green
+      hex: '90EE90'
+    - id: pale_green
+      hex: '98FB98'
+    - id: dark_sea_green
+      hex: '8FBC8F'
+    - id: medium_spring_green
+      hex: '00FA9A'
+    - id: spring_green
+      hex: '00FF7F'
+    - id: sea_green
+      hex: '2E8B57'
+    - id: medium_aqua_marine
+      hex: '66CDAA'
+    - id: medium_sea_green
+      hex: '3CB371'
+    - id: light_sea_green
+      hex: '20B2AA'
+    - id: dark_slate_gray
+      hex: '2F4F4F'
+    - id: dark_cyan
+      hex: '008B8B'
+    - id: aqua
+      hex: '00FFFF'
+    - id: light_cyan
+      hex: 'E0FFFF'
+    - id: dark_turquoise
+      hex: '00CED1'
+    - id: turquoise
+      hex: '40E0D0'
+    - id: medium_turquoise
+      hex: '48D1CC'
+    - id: pale_turquoise
+      hex: 'AFEEEE'
+    - id: aqua_marine
+      hex: '7FFFD4'
+    - id: powder_blue
+      hex: 'B0E0E6'
+    - id: cadet_blue
+      hex: '5F9EA0'
+    - id: steel_blue
+      hex: '4682B4'
+    - id: corn_flower_blue
+      hex: '6495ED'
+    - id: deep_sky_blue
+      hex: '00BFFF'
+    - id: dodger_blue
+      hex: '1E90FF'
+    - id: light_blue
+      hex: 'ADD8E6'
+    - id: sky_blue
+      hex: '87CEEB'
+    - id: light_sky_blue
+      hex: '87CEFA'
+    - id: midnight_blue
+      hex: '191970'
+    - id: dark_blue
+      hex: '00008B'
+    - id: medium_blue
+      hex: '0000CD'
+    - id: royal_blue
+      hex: '4169E1'
+    - id: blue_violet
+      hex: '8A2BE2'
+    - id: indigo
+      hex: '4B0082'
+    - id: dark_slate_blue
+      hex: '483D8B'
+    - id: slate_blue
+      hex: '6A5ACD'
+    - id: medium_slate_blue
+      hex: '7B68EE'
+    - id: medium_purple
+      hex: '9370DB'
+    - id: dark_magenta
+      hex: '8B008B'
+    - id: dark_violet
+      hex: '9400D3'
+    - id: dark_orchid
+      hex: '9932CC'
+    - id: medium_orchid
+      hex: 'BA55D3'
+    - id: thistle
+      hex: 'D8BFD8'
+    - id: plum
+      hex: 'DDA0DD'
+    - id: violet
+      hex: 'EE82EE'
+    - id: orchid
+      hex: 'DA70D6'
+    - id: medium_violet_red
+      hex: 'C71585'
+    - id: pale_violet_red
+      hex: 'DB7093'
+    - id: deep_pink
+      hex: 'FF1493'
+    - id: hot_pink
+      hex: 'FF69B4'
+    - id: light_pink
+      hex: 'FFB6C1'
+    - id: pink
+      hex: 'FFC0CB'
+    - id: antique_white
+      hex: 'FAEBD7'
+    - id: beige
+      hex: 'F5F5DC'
+    - id: bisque
+      hex: 'FFE4C4'
+    - id: blanched_almond
+      hex: 'FFEBCD'
+    - id: wheat
+      hex: 'F5DEB3'
+    - id: corn_silk
+      hex: 'FFF8DC'
+    - id: lemon_chiffon
+      hex: 'FFFACD'
+    - id: light_golden_rod_yellow
+      hex: 'FAFAD2'
+    - id: light_yellow
+      hex: 'FFFFE0'
+    - id: saddle_brown
+      hex: '8B4513'
+    - id: sienna
+      hex: 'A0522D'
+    - id: chocolate
+      hex: 'D2691E'
+    - id: peru
+      hex: 'CD853F'
+    - id: sandy_brown
+      hex: 'F4A460'
+    - id: burly_wood
+      hex: 'DEB887'
+    - id: tan
+      hex: 'D2B48C'
+    - id: rosy_brown
+      hex: 'BC8F8F'
+    - id: moccasin
+      hex: 'FFE4B5'
+    - id: navajo_white
+      hex: 'FFDEAD'
+    - id: peach_puff
+      hex: 'FFDAB9'
+    - id: misty_rose
+      hex: 'FFE4E1'
+    - id: lavender_blush
+      hex: 'FFF0F5'
+    - id: linen
+      hex: 'FAF0E6'
+    - id: old_lace
+      hex: 'FDF5E6'
+    - id: papaya_whip
+      hex: 'FFEFD5'
+    - id: sea_shell
+      hex: 'FFF5EE'
+    - id: mint_cream
+      hex: 'F5FFFA'
+    - id: slate_gray
+      hex: '708090'
+    - id: light_slate_gray
+      hex: '778899'
+    - id: light_steel_blue
+      hex: 'B0C4DE'
+    - id: lavender
+      hex: 'E6E6FA'
+    - id: floral_white
+      hex: 'FFFAF0'
+    - id: alice_blue
+      hex: 'F0F8FF'
+    - id: ghost_white
+      hex: 'F8F8FF'
+    - id: honeydew
+      hex: 'F0FFF0'
+    - id: ivory
+      hex: 'FFFFF0'
+    - id: azure
+      hex: 'F0FFFF'
+    - id: snow
+      hex: 'FFFAFA' 
