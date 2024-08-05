@@ -268,4 +268,18 @@ color:
     - id: Azure
       hex: 'F0FFFF'
     - id: Snow
-      hex: 'FFFAFA' 
+      hex: 'FFFAFA'
+    - id: Dim_Gray
+      hex: '696969'
+    - id: Gray
+      hex: '808080'
+    - id: Dark_Gray
+      hex: 'A9A9A9'
+    - id: Silver
+      hex: 'C0C0C0'
+    - id: Light_Gray
+      hex: 'D3D3D3'
+    - id: Gainsboro
+      hex: 'DCDCDC'
+    - id: White_Smoke
+      hex: 'F5F5F5'

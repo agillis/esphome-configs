@@ -56,6 +56,7 @@ i2c:
   - id: bus_a
     sda: GPIO19
     scl: GPIO45
+    ignore_strapping_warning: true
     #frequency: 100kHz
     
 touchscreen:
