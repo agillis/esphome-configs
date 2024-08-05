@@ -1,4 +1,6 @@
 # Guition ESP32-S3-4848S040 480px X 480px Smart Screen
+# Hardware config file
+
 
 esphome:
   name: "${name}"
