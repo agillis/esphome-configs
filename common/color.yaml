@@ -273,12 +273,8 @@ color:
       hex: '313131'      
     - id: Dim_Gray
       hex: '696969'
-    - id: Gray
-      hex: '808080'
     - id: Dark_Gray
       hex: 'A9A9A9'
-    - id: Silver
-      hex: 'C0C0C0'
     - id: Light_Gray
       hex: 'D3D3D3'
     - id: Gainsboro
