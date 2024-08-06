@@ -13,12 +13,14 @@ substitutions:
 
   icon_font: light40
   text_font: roboto24  
-  button_on_color: "0xCC5E14"
-  icon_on_color: "0xFFFF00"
-  button_off_color: "0x313131"
-  icon_off_color: "0xB6B6B6"
+  button_on_color: "Dark_Orange"
+  icon_on_color: "Yellow"
+  button_off_color: "Very_Dark_Gray"
+  icon_off_color: "White"
+  button_text_color: "White"
   button_hight_single: '109px'
   button_hight_double: '228px'
+  button_width: '150px' 
   
   button_1_name: "Local Light"
   button_1_id: local_light
@@ -57,8 +59,9 @@ packages:
     ]    
 
 time:
-  - platform: homeassistant
-    id: homeassistant_time
+  - platform: sntp
+    id: sntp_time
+    update_interval: 360min   # Change sync interval from default 5min to 6 hours  
     on_time_sync:
       - if:
           condition:
@@ -66,7 +69,7 @@ time:
           then:
             - text_sensor.template.publish:
                 id: device_last_restart
-                state: !lambda 'return id(homeassistant_time).now().strftime("%a %d %b %Y - %I:%M:%S %p");'
+                state: !lambda 'return id(sntp_time).now().strftime("%a %d %b %Y - %I:%M:%S %p");'
 
 sensor:
   - platform: wifi_signal
@@ -154,18 +157,18 @@ lvgl:
       scroll_on_focus: true
       group: general
       radius: 25
-      width: 150
+      width: $button_width
       height: $button_hight_single
       pad_left: 10px
       pad_top: 10px
       pad_bottom: 10px
       pad_right: 10px
       shadow_width: 0
-      bg_color: 0x313131
-      text_color: 0xB6B6B6
+      bg_color: $button_off_color
+      text_color: $button_text_color
       checked:
-        bg_color: 0xCC5E14
-        text_color: 0xB6B6B6
+        bg_color: $button_on_color
+        text_color: $button_text_color
 
   page_wrap: true
   pages:
@@ -175,7 +178,7 @@ lvgl:
         type: flex
         flex_flow: column_wrap
       width: 100%
-      bg_color: White
+      bg_color: Black
       bg_opa: cover
       pad_all: 5
       widgets:
@@ -213,7 +216,7 @@ light:
       then:
         - lvgl.widget.update:
             id: lv_button_1_icon
-            text_color: 0xFFFF00
+            text_color: $icon_on_color
         - lvgl.widget.update:
             id: lv_button_1
             state:
@@ -222,7 +225,7 @@ light:
       then:
         - lvgl.widget.update:
             id: lv_button_1_icon
-            text_color: 0xB6B6B6
+            text_color: $icon_off_color
         - lvgl.widget.update:
             id: lv_button_1
             state:

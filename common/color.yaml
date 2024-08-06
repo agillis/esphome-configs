@@ -269,6 +269,8 @@ color:
       hex: 'F0FFFF'
     - id: Snow
       hex: 'FFFAFA'
+    - id: Very_Dark_Gray
+      hex: '313131'      
     - id: Dim_Gray
       hex: '696969'
     - id: Gray
