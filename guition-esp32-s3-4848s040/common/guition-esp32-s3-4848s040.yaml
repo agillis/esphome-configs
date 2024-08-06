@@ -1,6 +1,5 @@
 # Guition ESP32-S3-4848S040 480px X 480px Smart Screen
-# Hardware config file
-
+# Hardware configuration file
 
 esphome:
   name: "${name}"
@@ -56,8 +55,6 @@ i2c:
   - id: bus_a
     sda: GPIO19
     scl: GPIO45
-    ignore_strapping_warning: true
-    #frequency: 100kHz
     
 touchscreen:
   platform: gt911
@@ -136,4 +133,4 @@ display:
         - 5         #b2
         - 6         #b3
         - 7         #b4
-        - 15        #b5    	
+        - 15        #b5
