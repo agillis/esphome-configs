@@ -1,0 +1,318 @@
+substitutions:
+  name: "sunton-esp32-8048s070"
+  friendly_name: "Sunton800"
+  device_description: "Sunton ESP32-S3-8048S070 480px X 800px Smart Screen"
+  project_name: "Sunton.ESP32_S3_8048S070"
+  project_version: "0.9.0"
+  
+  lightbulb:     "\U000F0335"
+  ceiling_light: "\U000F0769"
+  lamp:          "\U000F06B5"
+  floor_lamp:    "\U000F08DD"
+  string_lights: "\U000F12BA"
+
+  icon_font: light40
+  text_font: roboto24  
+  button_on_color: "Dark_Orange"
+  icon_on_color: "Yellow"
+  button_off_color: "Very_Dark_Gray"
+  icon_off_color: "White"
+  button_text_color: "White"
+  button_hight_single: '109px'
+  button_hight_double: '228px'
+  button_width: '150px' 
+  
+  button_1_name: "Local Light"
+  button_1_id: local_light
+  button_1_icon: $lightbulb
+  button_1_HAdevice: $button_1_id  
+
+logger:
+  level: info
+  logs:
+    i2c.idf: info
+    touchscreen: info
+    scheduler: none
+api:
+  encryption:
+    key: !secret encryption_key 
+ota:
+  platform: esphome
+web_server:
+  port: 80
+  version: 3  
+wifi:
+  ssid: !secret wifi_ssid
+  password: !secret wifi_password 
+  
+external_components:
+  - source: github://pr#6363 # Previous commit - wont be needed once this code is relaased
+    refresh: 10min
+    components: [lvgl]
+
+packages:
+  common_files:
+    url: https://github.com/agillis/esphome-configs
+    ref: main # optional
+    files: [common/color.yaml,
+            sunton-esp32-8048s070/common/sunton-esp32-8048s070.yaml
+    ]    
+
+time:
+  - platform: sntp
+    id: sntp_time
+    update_interval: 360min   # Change sync interval from default 5min to 6 hours  
+    on_time_sync:
+      - if:
+          condition:
+            lambda: 'return id(device_last_restart).state == "";'
+          then:
+            - text_sensor.template.publish:
+                id: device_last_restart
+                state: !lambda 'return id(sntp_time).now().strftime("%a %d %b %Y - %I:%M:%S %p");'
+
+sensor:
+  - platform: wifi_signal
+    name: "WiFi Signal"
+    id: wifi_signal_db
+    update_interval: 60s
+    entity_category: diagnostic
+    internal: true
+
+  # Reports the WiFi signal strength in %
+  - platform: copy
+    source_id: wifi_signal_db
+    name: "WiFi Strength"
+    filters:
+      - lambda: return min(max(2 * (x + 100.0), 0.0), 100.0);
+    unit_of_measurement: "%"
+    entity_category: diagnostic
+    
+text_sensor:
+  - platform: wifi_info
+    ip_address:
+      name: "IP Address"
+      entity_category: diagnostic
+    ssid:
+      name: "Connected SSID"
+      entity_category: diagnostic
+    mac_address:
+      name: "Mac Address"
+      entity_category: diagnostic
+  - platform: template
+    name: 'Last Restart'
+    id: device_last_restart
+    icon: mdi:clock
+    entity_category: diagnostic
+
+binary_sensor:
+  - platform: status
+    name: "Status"
+    entity_category: diagnostic    
+    
+ 
+#-------------------------------------------
+# LVGL Buttons
+#-------------------------------------------     
+lvgl:
+  displays:
+    - display_id: my_display
+  touchscreens:
+    - touchscreen_id: my_touchscreen
+  on_idle:
+    - timeout: 10s
+      then:
+        - logger.log: idle timeout
+        - if:
+            condition:
+              lvgl.is_idle:
+                timeout: 5s
+            then:
+              - logger.log: LVGL is idle
+    - timeout: 15s
+      then:
+        - logger.log: idle 15s timeout
+
+      #- lvgl.pause:
+      #- light.turn_off:
+      #    id: display_backlight
+      #    transition_length: 5s    
+
+  style_definitions:
+    - id: no_checked_color
+      bg_color: 0xCC5E14
+      text_color: 0xB6B6B6
+
+  theme:
+    btn:
+      text_font: roboto24
+      scroll_on_focus: true
+      group: general
+      radius: 25px
+      width: 150px
+      height: 109px
+      pad_all: 10px
+      shadow_width: 0 # This is required even though the default is suposed to be 0
+      bg_color: 0x313131
+      text_color: 0xB6B6B6
+      checked:
+        bg_color: 0xCC5E14
+        text_color: 0xB6B6B6
+
+  page_wrap: true
+  
+  top_layer:
+    widgets:
+      - obj:
+          id: boot_screen
+          layout: 
+            type: flex
+            flex_flow: COLUMN_WRAP 
+          width: 800px
+          height: 480px
+          text_font: roboto24
+          scrollbar_mode: 'off'
+          bg_color: 0xffffff
+          bg_opa: COVER
+          radius: 0
+          pad_all: 5
+          widgets:
+            - img:
+                src: boot_logo
+                antialias: true
+                pad_bottom: 10
+            - label:
+                id: ip_address_label
+                text: "IP Address:"                
+            - label:
+                text:
+                  format: "MAC Address: %s"
+                  args: [ 'id(mac_address).state.c_str()' ]                
+            - label:
+                id: connected_ssid_label
+                text: "Connected SSID:"
+            - label:
+                id: wifi_signal_db_percent_label
+                text: "WiFi Strength: 0%"
+            - label:
+                text:
+                  format: "ESPHome Version: %s"
+                  args: [ 'id(esphome_version).state.c_str()' ]
+            - obj:
+               radius: 0
+               pad_all: 0
+               border_width: 0
+               width: 470px
+               flex_grow: 1            
+               widgets:
+                 - btn:
+                    align: bottom_right
+                    radius: 15
+                    width: 100
+                    height: 60
+                    checkable: true
+                    widgets:
+                     - label:
+                         text_color: 0xffffff
+                         align: center
+                         text: "OK"
+                    on_press:
+                     - lvgl.widget.hide: boot_screen
+ 
+  pages:
+    - id: main_page
+      skip: true
+      layout: 
+        type: flex
+        flex_flow: column_wrap
+      width: 100%
+      bg_color: Black
+      bg_opa: cover
+      pad_all: 5
+      widgets:
+        - button:
+            height: $button_hight_double
+            checkable: true
+            id: lv_button_1
+            widgets:
+              - label:
+                  text_font: $icon_font
+                  align: top_left
+                  text: $button_1_icon
+                  id: lv_button_1_icon
+              - label:
+                  align: bottom_left
+                  text: $button_1_name
+            on_click:
+                light.toggle: $button_1_HAdevice
+#-------------------------------------------
+# Graphics and Fonts
+#-------------------------------------------
+image:
+  - file: https://esphome.io/_static/logo-text-on-light.svg
+    id: boot_logo
+    resize: 460x90
+    type: RGB565
+    use_transparency: true
+
+font:
+# for time display
+  - file: "gfonts://Roboto" 
+    id: roboto40
+    size: 40
+    bpp: 4
+
+# for buttons
+  - file: "gfonts://Roboto" 
+    id: roboto24
+    size: 24
+    bpp: 4
+ 
+ # Button icons    
+  - file: 'fonts/materialdesignicons-webfont.ttf' # http://materialdesignicons.com/cdn/7.4.47/ 
+    id: light40
+    size: 40
+    bpp: 4
+    glyphs: [
+      "\U000F0335", # mdi-lightbulb
+      "\U000F0769", # mdi-ceiling-light
+      "\U000F06B5", # mdi-lamp
+      "\U000F08DD", # mdi-floor-lamp
+      "\U000F12BA", # mdi-string-lights
+      ]         
+
+  - file: 'fonts/materialdesignicons-webfont.ttf' # http://materialdesignicons.com/cdn/7.4.47/ 
+    id: weather70
+    size: 70
+    bpp: 4
+    glyphs: &mdi-weather-glyphs
+      - "\U000F0590" # mdi-weather-cloudy
+      - "\U000F0F2F" # mdi-weather-cloudy-alert
+      - "\U000F0E6E" # mdi-weather-cloudy-arrow-right
+      - "\U000F0591" # mdi-weather-fog
+      - "\U000F0592" # mdi-weather-hail
+      - "\U000F0F30" # mdi-weather-hazy
+      - "\U000F0898" # mdi-weather-hurricane
+      - "\U000F0593" # mdi-weather-lightning
+      - "\U000F067E" # mdi-weather-lightning-rainy
+      - "\U000F0594" # mdi-weather-clear-night
+      - "\U000F0F31" # mdi-weather-night-partly-cloudy
+      - "\U000F0595" # mdi-weather-partly-cloudy
+      - "\U000F0F32" # mdi-weather-partly-lightning
+      - "\U000F0F33" # mdi-weather-partly-rainy
+      - "\U000F0F34" # mdi-weather-partly-snowy
+      - "\U000F0F35" # mdi-weather-partly-snowy-rainy
+      - "\U000F0596" # mdi-weather-pouring
+      - "\U000F0597" # mdi-weather-rainy
+      - "\U000F0598" # mdi-weather-snowy
+      - "\U000F0F36" # mdi-weather-snowy-heavy
+      - "\U000F067F" # mdi-weather-snowy-rainy
+      - "\U000F0599" # mdi-weather-sunny
+      - "\U000F0F37" # mdi-weather-sunny-alert
+      - "\U000F14E4" # mdi-weather-sunny-off
+      - "\U000F059A" # mdi-weather-sunset
+      - "\U000F059B" # mdi-weather-sunset-down
+      - "\U000F059C" # mdi-weather-sunset-up
+      - "\U000F0F38" # mdi-weather-tornado
+      - "\U000F059D" # mdi-weather-windy
+      - "\U000F059E" # mdi-weather-windy-variant                
