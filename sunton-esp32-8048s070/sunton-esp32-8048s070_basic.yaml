@@ -25,7 +25,7 @@ substitutions:
   button_1_name: "Local Light"
   button_1_id: local_light
   button_1_icon: $lightbulb
-  button_1_HAdevice: $button_1_id  
+
 
 logger:
   level: info
@@ -37,7 +37,9 @@ api:
   encryption:
     key: !secret encryption_key 
 ota:
-  platform: esphome
+  - platform: esphome
+    password: !secret ota_password
+
 web_server:
   port: 80
   version: 3  
@@ -87,23 +89,52 @@ sensor:
       - lambda: return min(max(2 * (x + 100.0), 0.0), 100.0);
     unit_of_measurement: "%"
     entity_category: diagnostic
+
     
 text_sensor:
+  - platform: homeassistant
+    entity_id: weather.forecast_home
+    id: weather_now_condition
+    internal: true
+    
+  - platform: version
+    id: esphome_version
+    name: "ESPHome Version"
+    hide_timestamp: true
+
   - platform: wifi_info
+    mac_address:
+      id: mac_address
+      name: "Mac Address"
+      entity_category: diagnostic  
     ip_address:
+      id: ip_address
       name: "IP Address"
       entity_category: diagnostic
+      on_value:
+        then:
+          - lvgl.label.update:
+              id: ip_address_label
+              text:
+                format: "IP Address: %s"
+                args: [ 'id(ip_address).state.c_str()' ] 
     ssid:
+      id: connected_ssid
       name: "Connected SSID"
       entity_category: diagnostic
-    mac_address:
-      name: "Mac Address"
-      entity_category: diagnostic
+      on_value:
+        then:
+          - lvgl.label.update:
+              id: connected_ssid_label
+              text:
+                format: "Connected SSID: %s"
+                args: [ 'id(connected_ssid).state.c_str()' ]
+
   - platform: template
     name: 'Last Restart'
     id: device_last_restart
     icon: mdi:clock
-    entity_category: diagnostic
+    entity_category: diagnostic                
 
 binary_sensor:
   - platform: status
@@ -144,7 +175,7 @@ lvgl:
       text_color: 0xB6B6B6
 
   theme:
-    btn:
+    button:
       text_font: roboto24
       scroll_on_focus: true
       group: general
@@ -177,7 +208,7 @@ lvgl:
           radius: 0
           pad_all: 5
           widgets:
-            - img:
+            - image:
                 src: boot_logo
                 antialias: true
                 pad_bottom: 10
@@ -205,7 +236,7 @@ lvgl:
                width: 470px
                flex_grow: 1            
                widgets:
-                 - btn:
+                 - button:
                     align: bottom_right
                     radius: 15
                     width: 100
@@ -243,8 +274,7 @@ lvgl:
               - label:
                   align: bottom_left
                   text: $button_1_name
-            on_click:
-                light.toggle: $button_1_HAdevice
+
 #-------------------------------------------
 # Graphics and Fonts
 #-------------------------------------------
@@ -256,63 +286,41 @@ image:
     use_transparency: true
 
 font:
-# for time display
-  - file: "gfonts://Roboto" 
-    id: roboto40
-    size: 40
-    bpp: 4
-
-# for buttons
-  - file: "gfonts://Roboto" 
+  - file: "gfonts://Roboto"
     id: roboto24
     size: 24
     bpp: 4
- 
- # Button icons    
-  - file: 'fonts/materialdesignicons-webfont.ttf' # http://materialdesignicons.com/cdn/7.4.47/ 
+    extras:
+      # http://materialdesignicons.com/cdn/7.4.47/
+      - file: 'https://github.com/Templarian/MaterialDesign-Webfont/raw/v7.4.47/fonts/materialdesignicons-webfont.ttf'
+        glyphs: [
+          "\U000F004B",
+          "\U0000f0ed",
+          "\U000F006E",
+          "\U000F012C",
+          "\U000F179B",
+          "\U000F0748",
+          "\U000F1A1B",
+          "\U000F02DC",
+          "\U000F0A02",
+          "\U000F035F",
+          "\U000F0156",
+          "\U000F0C5F",
+          "\U000f0084",
+          "\U000f0091",
+        ]
+
+  # http://materialdesignicons.com/cdn/7.4.47/
+  - file: 'https://github.com/Templarian/MaterialDesign-Webfont/raw/v7.4.47/fonts/materialdesignicons-webfont.ttf'
     id: light40
     size: 40
     bpp: 4
     glyphs: [
-      "\U000F0335", # mdi-lightbulb
-      "\U000F0769", # mdi-ceiling-light
-      "\U000F06B5", # mdi-lamp
-      "\U000F08DD", # mdi-floor-lamp
-      "\U000F12BA", # mdi-string-lights
-      ]         
+      "\U000F0335",  # mdi-lightbulb
+      "\U000F0769",  # mdi-ceiling-light
+      "\U000F06B5",  # mdi-lamp
+      "\U000F08DD",  # mdi-floor-lamp
+      "\U000F12BA",  # mdi-string-lights
+    ]         
 
-  - file: 'fonts/materialdesignicons-webfont.ttf' # http://materialdesignicons.com/cdn/7.4.47/ 
-    id: weather70
-    size: 70
-    bpp: 4
-    glyphs: &mdi-weather-glyphs
-      - "\U000F0590" # mdi-weather-cloudy
-      - "\U000F0F2F" # mdi-weather-cloudy-alert
-      - "\U000F0E6E" # mdi-weather-cloudy-arrow-right
-      - "\U000F0591" # mdi-weather-fog
-      - "\U000F0592" # mdi-weather-hail
-      - "\U000F0F30" # mdi-weather-hazy
-      - "\U000F0898" # mdi-weather-hurricane
-      - "\U000F0593" # mdi-weather-lightning
-      - "\U000F067E" # mdi-weather-lightning-rainy
-      - "\U000F0594" # mdi-weather-clear-night
-      - "\U000F0F31" # mdi-weather-night-partly-cloudy
-      - "\U000F0595" # mdi-weather-partly-cloudy
-      - "\U000F0F32" # mdi-weather-partly-lightning
-      - "\U000F0F33" # mdi-weather-partly-rainy
-      - "\U000F0F34" # mdi-weather-partly-snowy
-      - "\U000F0F35" # mdi-weather-partly-snowy-rainy
-      - "\U000F0596" # mdi-weather-pouring
-      - "\U000F0597" # mdi-weather-rainy
-      - "\U000F0598" # mdi-weather-snowy
-      - "\U000F0F36" # mdi-weather-snowy-heavy
-      - "\U000F067F" # mdi-weather-snowy-rainy
-      - "\U000F0599" # mdi-weather-sunny
-      - "\U000F0F37" # mdi-weather-sunny-alert
-      - "\U000F14E4" # mdi-weather-sunny-off
-      - "\U000F059A" # mdi-weather-sunset
-      - "\U000F059B" # mdi-weather-sunset-down
-      - "\U000F059C" # mdi-weather-sunset-up
-      - "\U000F0F38" # mdi-weather-tornado
-      - "\U000F059D" # mdi-weather-windy
-      - "\U000F059E" # mdi-weather-windy-variant                
+              
