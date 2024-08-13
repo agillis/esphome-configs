@@ -39,17 +39,19 @@ preferences:
 #  Audio output (Mono)
 #-------------------------------------------
 
-i2s_audio:
-  i2s_lrclk_pin: 18
-  i2s_bclk_pin: 19
+# Not working on framework type: esp-idf
 
-media_player:
-  - platform: i2s_audio
-    name: ${friendly_name}
-    dac_type: external
-    i2s_dout_pin: 17
-    mode: stereo
-    id: media_out   
+#i2s_audio:
+#  i2s_lrclk_pin: 18
+#  i2s_bclk_pin: 19
+
+#media_player:
+#  - platform: i2s_audio
+#    name: ${friendly_name}
+#    dac_type: external
+#    i2s_dout_pin: 17
+#    mode: stereo
+#    id: media_out   
   
 #-------------------------------------------
 # Backlight
