@@ -4,7 +4,7 @@
 esphome:
   name: "${name}"
   friendly_name: "${friendly_name}"
-  min_version: 2024.7.0
+  min_version: 2024.8.0
   #name_add_mac_suffix: true
   project:
     name: "${project_name}"
