@@ -1,0 +1,473 @@
+substitutions:
+  name: "guition-esp32-s3-4848s040"
+  friendly_name: "Guition480"
+  device_description: "Guition ESP32-S3-4848S040 480*480 Smart Screen"
+  project_name: "Guition.ESP32_S3_4848S040"
+  project_version: "1.0.0"
+  
+  lightbulb:     "\U000F0335"
+  ceiling_light: "\U000F0769"
+  lamp:          "\U000F06B5"
+  floor_lamp:    "\U000F08DD"
+  string_lights: "\U000F12BA"
+
+  icon_font: light40
+  text_font: roboto24  
+  button_on_color: "Burnt_Sienna"
+  icon_on_color: "Yellow"
+  button_off_color: "Very_Dark_Gray"
+  icon_off_color: "Gray"
+  button_text_color: "White"
+  button_height_single: '109px'
+  button_height_double: '228px'
+  button_width: '150px' 
+  
+  button_1_name: "Local Light"
+  button_1_id: local_light
+  button_1_icon: $lightbulb
+  button_1_HAdevice: local_light
+
+  button_2_name: "Couch Lamp"
+  button_2_id: couch_lamp
+  button_2_icon: $lightbulb
+  button_2_HAdevice: "switch.athom_smart_plug_v3_50ebc0_switch"
+  
+globals:
+  - id: late_night_mode
+    type: bool
+    restore_value: false
+    initial_value: 'false'  
+
+packages:
+  common_files:
+    url: https://github.com/agillis/esphome-configs
+    ref: main # optional
+    files: [common/color.yaml,
+            guition-esp32-s3-4848s040/common/guition-esp32-s3-4848s040.yaml
+    ]
+
+logger:
+  level: debug
+  logs:
+    i2c.idf: info
+    touchscreen: info
+    scheduler: none
+api:
+  encryption:
+    key: !secret encryption_key 
+ota:
+  platform: esphome
+web_server:
+  port: 80
+  version: 3  
+wifi:
+  ssid: !secret wifi_ssid
+  password: !secret wifi_password
+  fast_connect: yes
+sun:
+  latitude: !secret latitude
+  longitude: !secret longitude
+  on_sunset:
+    - elevation: -3.5°
+      then:
+      - light.turn_on:
+          id: display_backlight
+          brightness: 50%          
+  on_sunrise:
+    then:
+    - light.turn_on:
+        id: display_backlight
+        brightness: 100% 
+time:
+  - platform: sntp
+    id: sntp_time
+    update_interval: 360min   # Change sync interval from default 5min to 6 hours  
+    on_time_sync:
+      - if: # Update the laster restart time
+          condition:
+            lambda: 'return id(device_last_restart).state == "";'
+          then:
+            - text_sensor.template.publish:
+                id: device_last_restart
+                state: !lambda 'return id(sntp_time).now().strftime("%a %d %b %Y - %I:%M:%S %p");'
+    on_time:
+      # Turn on Late Night Mode at midnight
+      - seconds: 0
+        minutes: 0
+        hours: 0
+        then:
+          - globals.set:
+              id: late_night_mode
+              value: 'true'
+          - light.turn_off:
+              id: display_backlight
+          - lvgl.pause:
+              show_snow: true
+          
+      # Turn off Late Night Mode at 5:30AM    
+      - seconds: 0
+        minutes: 30
+        hours: 5
+        then:
+          - globals.set:
+              id: late_night_mode
+              value: 'false'
+          - lvgl.resume:
+          - light.turn_on:
+              id: display_backlight
+              brightness: 50%          
+
+esphome:
+  on_boot:
+    priority: -100
+    then:
+      - delay: 60s
+      - lvgl.widget.hide: boot_screen
+   
+binary_sensor:
+  - platform: status
+    name: "Status"
+    entity_category: diagnostic
+
+sensor:
+  - platform: wifi_signal
+    name: "WiFi Signal"
+    id: wifi_signal_db
+    update_interval: 60s
+    entity_category: diagnostic
+    internal: true
+
+  # Reports the WiFi signal strength in %
+  - platform: copy
+    id: wifi_signal_db_percent
+    source_id: wifi_signal_db
+    name: "WiFi Strength"
+    filters:
+      - lambda: return min(max(2 * (x + 100.0), 0.0), 100.0);
+    unit_of_measurement: "%"
+    entity_category: diagnostic
+    on_value:
+        then:
+          - lvgl.label.update:
+              id: wifi_signal_db_percent_label
+              text:
+                format: "Wi-Fi Strength: %.0f%%"
+                args: [ 'id(wifi_signal_db_percent).state' ]  
+
+text_sensor:
+  - platform: homeassistant
+    entity_id: weather.forecast_home
+    id: weather_now_condition
+    internal: true
+    
+  - platform: version
+    id: esphome_version
+    name: "ESPHome Version"
+    hide_timestamp: true
+
+  - platform: wifi_info
+    mac_address:
+      id: mac_address
+      name: "MAC Address"
+      entity_category: diagnostic
+    ip_address:
+      id: ip_address
+      name: "IP Address"
+      entity_category: diagnostic
+      on_value:
+        then:
+          - lvgl.label.update:
+              id: ip_address_label
+              text:
+                format: "IP Address: %s"
+                args: [ 'id(ip_address).state.c_str()' ]
+          - lvgl.label.update:
+              id: connected_mac_label
+              text:
+                format: "MAC Address: %s"
+                args: [ 'id(mac_address).state.c_str()' ]                 
+    ssid:
+      id: connected_ssid
+      name: "Connected SSID"
+      entity_category: diagnostic
+      on_value:
+        then:
+          - lvgl.label.update:
+              id: connected_ssid_label
+              text:
+                format: "Connected SSID: %s"
+                args: [ 'id(connected_ssid).state.c_str()' ]                
+
+
+  - platform: template
+    name: 'Last Restart'
+    id: device_last_restart
+    icon: mdi:clock
+    entity_category: diagnostic
+# -------------------------------------------    
+# Buttons - Controlling Homeassistant objects
+# -------------------------------------------
+
+  - platform: homeassistant
+    name: "$button_2_name"
+    entity_id: $button_2_HAdevice
+    on_value:
+      then:
+        - lvgl.widget.update:
+            id: lv_button_2
+            state:
+              checked: !lambda return (0 == x.compare(std::string{"on"}));
+              disabled: !lambda return ((0 == x.compare(std::string{"unavailable"})) or (0 == x.compare(std::string{"unknown"})));
+        - if:
+            condition:
+              lambda: return (0 == x.compare(std::string{"on"}));
+            then:
+              - lvgl.widget.update:
+                  id: lv_button_2_icon
+                  text_color: Yellow
+            else:
+              - lvgl.widget.update:
+                  id: lv_button_2_icon
+                  text_color: Gray
+
+#-------------------------------------------
+# LVGL Buttons
+#-------------------------------------------    
+
+# Wake screen on touch
+touchscreen:
+  on_touch:
+    then:
+      - logger.log: "LVGL is active"
+      - lvgl.resume:
+      - if:   
+      # Only turn on baclight and set to 50% if late_night_mode is on
+          condition:
+            - lambda: |-
+                return id(late_night_mode);
+          then:      
+            - light.turn_on:
+                id: display_backlight
+                brightness: 50%  
+
+# Main LVGL section
+lvgl:
+  displays: 
+    - my_display
+  touchscreens:
+    - my_touchscreen
+  on_idle:
+    timeout: 120s
+    then:
+      - logger.log: "LVGL is idle"
+      - if:   
+      # Only turn off screen if night_mode is on
+          condition:
+            - lambda: |-
+                return id(late_night_mode);
+          then:      
+            - light.turn_off: display_backlight
+            - lvgl.pause:
+                show_snow: true          
+
+  theme:
+    button:
+      text_font: roboto24
+      scroll_on_focus: true
+      radius: 25px
+      width: 150px
+      height: 109px
+      pad_all: 10px
+      shadow_width: 0 # This is required even though the default is suposed to be 0
+      bg_color: Very_Dark_Gray
+      text_color: Gray
+      checked:
+        bg_color: $button_on_color
+        text_color: Gray
+
+  page_wrap: true
+
+# Boot Screen  
+  top_layer:
+    widgets:
+      - obj:
+          id: boot_screen
+          layout: 
+            type: flex
+            flex_flow: COLUMN_WRAP 
+          width: 480px
+          height: 480px
+          text_font: roboto24
+          scrollbar_mode: 'off'
+          bg_color: White
+          bg_opa: COVER
+          radius: 0
+          pad_all: 5
+          widgets:
+            - image:
+                src: boot_logo
+                antialias: true
+                pad_bottom: 10
+            - label:
+                text:
+                  format: "ESPHome Version: %s"
+                  args: [ 'id(esphome_version).state.c_str()' ]                   
+            - label:
+                id: connected_mac_label
+                text: "MAC Address: Not Connected"
+            - label:
+                id: ip_address_label
+                text: "IP Address: Not Connected"                
+            - label:
+                id: connected_ssid_label
+                text: "Connected SSID: Not Connected"
+            - label:
+                id: wifi_signal_db_percent_label
+                text: "WiFi Strength: Not Connected"
+            - obj:
+               radius: 0
+               pad_all: 0
+               border_width: 0
+               width: 470px
+               flex_grow: 1            
+               widgets:
+                 - button:
+                    align: bottom_right
+                    radius: 15
+                    width: 100
+                    height: 60
+                    checkable: true
+                    widgets:
+                     - label:
+                         text_color: White
+                         align: center
+                         text: "OK"
+                    on_press:
+                     - lvgl.widget.hide: boot_screen  
+
+  pages:
+    - id: main_page
+      layout: 
+        type: flex
+        flex_flow: column_wrap
+      width: 100%
+      bg_color: Black
+      bg_opa: cover
+      pad_all: 5
+      widgets:
+        - button:
+            height: $button_height_double
+            checkable: true
+            id: lv_button_1
+            widgets:
+              - label:
+                  text_font: $icon_font
+                  align: top_left
+                  text: $button_1_icon
+                  id: lv_button_1_icon
+              - label:
+                  align: bottom_left
+                  text: $button_1_name
+            on_click:
+                light.toggle: $button_1_HAdevice
+
+        - button:
+            height: $button_height_single        
+            checkable: true
+            id: lv_button_2
+            widgets:
+              - label:
+                  text_font: $icon_font
+                  align: top_left
+                  text: $button_2_icon
+                  id: lv_button_2_icon
+              - label:
+                  align: bottom_left
+                  text: $button_2_name
+ 
+            on_click:
+                - homeassistant.service:
+                    service: switch.toggle
+                    data:
+                      entity_id: $button_2_HAdevice                   
+
+#-------------------------------------------------------
+# Internal backlight + light attaced to internal relay(s)
+#-------------------------------------------------------
+light:
+  - platform: monochromatic
+    output: GPIO38
+    name: Display Backlight
+    id: display_backlight
+    restore_mode: ALWAYS_ON
+
+  - platform: binary
+    output: internal_relay_1
+    name: "Local Light"
+    id: local_light
+    on_turn_on:
+      then:
+        - lvgl.widget.update:
+            id: lv_button_1_icon
+            text_color: $icon_on_color
+        - lvgl.widget.update:
+            id: lv_button_1
+            state:
+              checked: true            
+    on_turn_off:
+      then:
+        - lvgl.widget.update:
+            id: lv_button_1_icon
+            text_color: $icon_off_color
+        - lvgl.widget.update:
+            id: lv_button_1
+            state:
+              checked: false             
+
+#-------------------------------------------
+# Graphics and Fonts
+#-------------------------------------------
+image:
+  - file: https://esphome.io/_static/logo-text-on-light.svg
+    id: boot_logo
+    resize: 460x90
+    type: RGB565
+    use_transparency: true
+    
+font:
+  - file: "gfonts://Roboto"
+    id: roboto24
+    size: 24
+    bpp: 4
+    extras:
+      # http://materialdesignicons.com/cdn/7.4.47/
+      - file: 'https://github.com/Templarian/MaterialDesign-Webfont/raw/v7.4.47/fonts/materialdesignicons-webfont.ttf'
+        glyphs: [
+          "\U000F004B",
+          "\U0000f0ed",
+          "\U000F006E",
+          "\U000F012C",
+          "\U000F179B",
+          "\U000F0748",
+          "\U000F1A1B",
+          "\U000F02DC",
+          "\U000F0A02",
+          "\U000F035F",
+          "\U000F0156",
+          "\U000F0C5F",
+          "\U000f0084",
+          "\U000f0091",
+        ]
+
+  # http://materialdesignicons.com/cdn/7.4.47/
+  - file: 'https://github.com/Templarian/MaterialDesign-Webfont/raw/v7.4.47/fonts/materialdesignicons-webfont.ttf'
+    id: light40
+    size: 40
+    bpp: 4
+    glyphs: [
+      "\U000F0335",  # mdi-lightbulb
+      "\U000F0769",  # mdi-ceiling-light
+      "\U000F06B5",  # mdi-lamp
+      "\U000F08DD",  # mdi-floor-lamp
+      "\U000F12BA",  # mdi-string-lights
+    ]       
