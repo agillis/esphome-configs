@@ -281,3 +281,6 @@ color:
       hex: 'DCDCDC'
     - id: White_Smoke
       hex: 'F5F5F5'
+# Extra colors
+    - id: Burnt_Sienna
+      hex: 'CC5E14'
