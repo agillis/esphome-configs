@@ -1,0 +1,58 @@
+---
+# Boot Screen  
+    widgets:
+      - obj:
+          id: boot_screen
+          layout: 
+            type: flex
+            flex_flow: COLUMN_WRAP
+          height: ${hight}            
+          width: ${width}
+          text_font: roboto24
+          scrollbar_mode: 'off'
+          bg_color: White
+          bg_opa: COVER
+          radius: 0
+          pad_all: 5
+          widgets:
+            - image:
+                src: boot_logo
+                antialias: true
+                pad_bottom: 10
+            - label:
+                text:
+                  format: "ESPHome Version: %s"
+                  args: [ 'id(esphome_version).state.c_str()' ]                   
+            - label:
+                id: connected_mac_label
+                text: "MAC Address: Not Connected"
+            - label:
+                id: ip_address_label
+                text: "IP Address: Not Connected"                
+            - label:
+                id: connected_ssid_label
+                text: "Connected SSID: Not Connected"
+            - label:
+                id: wifi_signal_db_percent_label
+                text: "WiFi Strength: Not Connected"
+            - obj:
+               radius: 0
+               pad_all: 0
+               border_width: 0
+               width: ${width}
+               flex_grow: 1            
+               widgets:
+                 - button:
+                    align: bottom_right
+                    x: -10
+                    radius: 15
+                    width: 100
+                    height: 60
+                    checkable: true
+                    widgets:
+                     - label:
+                         text_color: White
+                         align: center
+                         text: "OK"
+                    on_press:
+                     - lvgl.widget.hide: boot_screen  

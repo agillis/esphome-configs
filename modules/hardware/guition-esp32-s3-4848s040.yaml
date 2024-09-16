@@ -48,6 +48,13 @@ output:
     platform: gpio
     pin: 40
 
+light:
+  - platform: monochromatic
+    output: GPIO38
+    name: Display Backlight
+    id: display_backlight
+    restore_mode: ALWAYS_ON
+
 #-------------------------------------------
 # Touchscreen gt911 i2c
 #-------------------------------------------

@@ -27,14 +27,14 @@ sensor:
               id: wifi_signal_db_percent_label
               text:
                 format: "Wi-Fi Strength: %.0f%%"
-                args: [ 'id(wifi_signal_db_percent).state' ]  
+                args: [ 'id(wifi_signal_db_percent).state' ]
 
 text_sensor:
   - platform: homeassistant
     entity_id: weather.forecast_home
     id: weather_now_condition
     internal: true
-    
+
   - platform: version
     id: esphome_version
     name: "ESPHome Version"
@@ -60,7 +60,7 @@ text_sensor:
               id: connected_mac_label
               text:
                 format: "MAC Address: %s"
-                args: [ 'id(mac_address).state.c_str()' ]                 
+                args: [ 'id(mac_address).state.c_str()' ]
     ssid:
       id: connected_ssid
       name: "Connected SSID"
@@ -71,7 +71,7 @@ text_sensor:
               id: connected_ssid_label
               text:
                 format: "Connected SSID: %s"
-                args: [ 'id(connected_ssid).state.c_str()' ]                
+                args: [ 'id(connected_ssid).state.c_str()' ]
 
 
   - platform: template

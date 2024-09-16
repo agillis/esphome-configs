@@ -1,0 +1,51 @@
+---
+sun:
+  latitude: !secret latitude
+  longitude: !secret longitude
+  on_sunset:
+    - elevation: -3.5°
+      then:
+      - light.turn_on:
+          id: display_backlight
+          brightness: $touchscreen_nighttime_brightness         
+  on_sunrise:
+    then:
+    - light.turn_on:
+        id: display_backlight
+        brightness: $touchscreen_daytime_brightness 
+time:
+  - platform: sntp
+    id: sntp_time
+    update_interval: 360min   # Change sync interval from default 5min to 6 hours  
+    on_time_sync:
+      - if: # Update the laster restart time
+          condition:
+            lambda: 'return id(device_last_restart).state == "";'
+          then:
+            - text_sensor.template.publish:
+                id: device_last_restart
+                state: !lambda 'return id(sntp_time).now().strftime("%a %d %b %Y - %I:%M:%S %p");'
+    on_time:
+      - seconds: 0
+        minutes: $screen_sleep_minute
+        hours: $screen_sleep_hour
+        then:
+          - globals.set:
+              id: late_night_mode
+              value: 'true'
+          - light.turn_off:
+              id: display_backlight
+          - lvgl.pause:
+              show_snow: true
+          
+      - seconds: 0
+        minutes: $screen_wake_minute
+        hours: $screen_wake_hour
+        then:
+          - globals.set:
+              id: late_night_mode
+              value: 'false'
+          - lvgl.resume:
+          - light.turn_on:
+              id: display_backlight
+              brightness: $touchscreen_nighttime_brightness    

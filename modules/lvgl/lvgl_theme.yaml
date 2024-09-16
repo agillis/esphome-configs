@@ -1,0 +1,14 @@
+---
+    button:
+      text_font: roboto24
+      scroll_on_focus: true
+      radius: 25px
+      width: $button_width
+      height: 109px
+      pad_all: 10px
+      shadow_width: 0 # This is required even though the default is suposed to be 0
+      bg_color: Very_Dark_Gray
+      text_color: Gray
+      checked:
+        bg_color: $button_on_color
+        text_color: Gray

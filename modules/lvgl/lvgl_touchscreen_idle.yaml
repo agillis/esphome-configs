@@ -1,0 +1,13 @@
+---
+    timeout: $touchscreen_idle_timeout
+    then:
+      - logger.log: "LVGL is idle"
+      - if:   
+      # Only turn off screen if night_mode is on
+          condition:
+            - lambda: |-
+                return id(late_night_mode);
+          then:      
+            - light.turn_off: display_backlight
+            - lvgl.pause:
+                show_snow: true
