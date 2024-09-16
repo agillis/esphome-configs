@@ -39,31 +39,11 @@ globals:
     initial_value: 'false'  
 
 packages:
-  common_files:
-    url: https://github.com/agillis/esphome-configs
-    ref: main # optional
-    files: [common/color.yaml,
-            guition-esp32-s3-4848s040/common/guition-esp32-s3-4848s040.yaml
-    ]
+  base: !include modules/common-base.yaml
+  hardware: !include modules/hardware/guition-esp32-s3-4848s040.yaml
+  color: !include modules/common/color.yaml
+  sensors: !include modules/common/sensors-base-lvgl.yaml
 
-logger:
-  level: info
-  logs:
-    i2c.idf: info
-    touchscreen: info
-    scheduler: none
-api:
-  encryption:
-    key: !secret encryption_key 
-ota:
-  platform: esphome
-web_server:
-  port: 80
-  version: 3  
-wifi:
-  ssid: !secret wifi_ssid
-  password: !secret wifi_password
-  fast_connect: yes
 sun:
   latitude: !secret latitude
   longitude: !secret longitude
@@ -124,90 +104,11 @@ esphome:
       - delay: 60s
       - lvgl.widget.hide: boot_screen
    
-binary_sensor:
-  - platform: status
-    name: "Status"
-    entity_category: diagnostic
 
-sensor:
-  - platform: wifi_signal
-    name: "WiFi Signal"
-    id: wifi_signal_db
-    update_interval: 60s
-    entity_category: diagnostic
-    internal: true
-
-  # Reports the WiFi signal strength in %
-  - platform: copy
-    id: wifi_signal_db_percent
-    source_id: wifi_signal_db
-    name: "WiFi Strength"
-    filters:
-      - lambda: return min(max(2 * (x + 100.0), 0.0), 100.0);
-    unit_of_measurement: "%"
-    entity_category: diagnostic
-    on_value:
-        then:
-          - lvgl.label.update:
-              id: wifi_signal_db_percent_label
-              text:
-                format: "Wi-Fi Strength: %.0f%%"
-                args: [ 'id(wifi_signal_db_percent).state' ]  
-
-text_sensor:
-  - platform: homeassistant
-    entity_id: weather.forecast_home
-    id: weather_now_condition
-    internal: true
-    
-  - platform: version
-    id: esphome_version
-    name: "ESPHome Version"
-    hide_timestamp: true
-
-  - platform: wifi_info
-    mac_address:
-      id: mac_address
-      name: "MAC Address"
-      entity_category: diagnostic
-    ip_address:
-      id: ip_address
-      name: "IP Address"
-      entity_category: diagnostic
-      on_value:
-        then:
-          - lvgl.label.update:
-              id: ip_address_label
-              text:
-                format: "IP Address: %s"
-                args: [ 'id(ip_address).state.c_str()' ]
-          - lvgl.label.update:
-              id: connected_mac_label
-              text:
-                format: "MAC Address: %s"
-                args: [ 'id(mac_address).state.c_str()' ]                 
-    ssid:
-      id: connected_ssid
-      name: "Connected SSID"
-      entity_category: diagnostic
-      on_value:
-        then:
-          - lvgl.label.update:
-              id: connected_ssid_label
-              text:
-                format: "Connected SSID: %s"
-                args: [ 'id(connected_ssid).state.c_str()' ]                
-
-
-  - platform: template
-    name: 'Last Restart'
-    id: device_last_restart
-    icon: mdi:clock
-    entity_category: diagnostic
 # -------------------------------------------    
 # Buttons - Controlling Homeassistant objects
 # -------------------------------------------
-
+text_sensor:
   - platform: homeassistant
     name: "$button_2_name"
     entity_id: $button_2_HAdevice

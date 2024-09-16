@@ -49,9 +49,8 @@ wifi:
 packages:
   common_files:
     url: https://github.com/agillis/esphome-configs
-    ref: main # optional
-    files: [common/color.yaml,
-            guition-esp32-s3-4848s040/common/guition-esp32-s3-4848s040.yaml
+    files: [modules/common/color.yaml,
+            modules/hardware/guition-esp32-s3-4848s040.yaml
     ]    
 
 time:

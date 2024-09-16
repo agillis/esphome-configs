@@ -27,7 +27,7 @@ esp32:
       CONFIG_SPIRAM_RODATA: y
 
 preferences:
-  flash_write_interval: 5min      
+  flash_write_interval: 1min      
 
 psram:
   mode: octal
