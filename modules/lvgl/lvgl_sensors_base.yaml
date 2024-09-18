@@ -39,6 +39,12 @@ text_sensor:
     id: esphome_version
     name: "ESPHome Version"
     hide_timestamp: true
+    
+  - platform: template
+    name: 'Last Restart'
+    id: device_last_restart
+    icon: mdi:clock
+    entity_category: diagnostic
 
   - platform: wifi_info
     mac_address:
@@ -72,10 +78,3 @@ text_sensor:
               text:
                 format: "Connected SSID: %s"
                 args: [ 'id(connected_ssid).state.c_str()' ]
-
-
-  - platform: template
-    name: 'Last Restart'
-    id: device_last_restart
-    icon: mdi:clock
-    entity_category: diagnostic
