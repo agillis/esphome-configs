@@ -4,8 +4,8 @@ api:
     key: !secret encryption_key 
 
 logger:
-  level: info
-  logs:
-    i2c.idf: info
-    touchscreen: info
-    scheduler: none
+#  level: info
+#  logs:
+#    i2c.idf: info
+#    touchscreen: info
+#    scheduler: none
