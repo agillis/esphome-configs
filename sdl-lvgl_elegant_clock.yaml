@@ -34,7 +34,7 @@ packages:
   common_files:
     url: https://github.com/agillis/esphome-configs
     ref: main # optional
-    files: [common/color.yaml]
+    files: [modules/common/color.yaml]
 
 api:
   encryption:
