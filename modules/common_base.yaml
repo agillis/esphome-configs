@@ -1,7 +1,5 @@
 ---
 api:
-  encryption:
-    key: !secret encryption_key 
 
 logger:
 #  level: info
