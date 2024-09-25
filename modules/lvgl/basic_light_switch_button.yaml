@@ -11,6 +11,7 @@
                   id: lv_button_${id}_icon
               - label:
                   align: bottom_left
+                  id: lv_button_${id}_label
                   text: $button_${id}_name
             on_click:
                 - homeassistant.service:

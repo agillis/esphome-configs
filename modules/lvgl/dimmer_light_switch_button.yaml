@@ -1,0 +1,46 @@
+---
+# Basic light switch button - define its setting in substitutions
+            height: ${hight}
+            checkable: true
+            id: lv_button_${id}
+            widgets:
+              - label:
+                  text_font: $icon_font
+                  align: top_left
+                  text: $button_${id}_icon
+                  id: lv_button_${id}_icon
+              - label:
+                  align: bottom_left
+                  id: lv_button_${id}_label
+                  text: $button_${id}_name
+              - slider:
+                  id: lv_button_${id}_slider
+                  align: top_right
+                  x: -5  
+                  width: 40
+                  height: 170
+                  pad_all: 0
+                  min_value: 0
+                  max_value: 255
+                  radius: 5px
+                  knob:
+                    bg_color: White
+                    radius: 2px
+                    pad_left: -3px
+                    pad_right: -3px
+                    pad_top: -18px
+                    pad_bottom: -18px
+                  indicator:
+                    radius: 0px
+                    bg_color: Gray
+                  on_release:
+                    - homeassistant.action:
+                        action: light.turn_on
+                        data:
+                          entity_id: $button_${id}_device
+                          brightness: !lambda return int(x);
+            on_click:
+                - homeassistant.service:
+                    service: light.toggle
+                    data:
+                      entity_id: $button_${id}_device

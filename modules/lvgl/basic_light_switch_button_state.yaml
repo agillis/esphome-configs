@@ -17,7 +17,13 @@
               - lvgl.widget.update:
                   id: lv_button_${id}_icon
                   text_color: Yellow
+              - lvgl.widget.update:
+                  id: lv_button_${id}_label 
+                  text_color: White                  
             else:
               - lvgl.widget.update:
                   id: lv_button_${id}_icon
                   text_color: Gray
+              - lvgl.widget.update:
+                  id: lv_button_${id}_label 
+                  text_color: Gray 
