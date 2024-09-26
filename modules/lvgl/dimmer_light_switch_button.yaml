@@ -14,15 +14,16 @@
                   id: lv_button_${id}_label
                   text: $button_${id}_name
               - slider:
-                  id: lv_button_${id}_slider
                   align: top_right
-                  x: -5  
+                  id: lv_button_${id}_slider
+                  x: -5
+                  y: 5                  
                   width: 40
-                  height: 170
+                  height: 165
                   pad_all: 0
                   min_value: 0
                   max_value: 255
-                  radius: 5px
+                  radius: 10px
                   knob:
                     bg_color: White
                     radius: 2px

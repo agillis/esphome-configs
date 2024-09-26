@@ -1,4 +1,5 @@
 ---
+# Dimmer switch button state - define its settings in substitutions
     platform: homeassistant
     id: button_${id}_device_brightness
     entity_id: $button_${id}_device

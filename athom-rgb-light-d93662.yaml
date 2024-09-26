@@ -1,0 +1,33 @@
+substitutions:
+  name: athom-rgb-light-d93662
+
+packages:
+  athom.rgb-light: !include modules/athom-rgb-light.yaml
+
+esphome:
+  name: ${name}
+  name_add_mac_suffix: false
+
+api:
+
+wifi:
+  ssid: !secret wifi_ssid
+  password: !secret wifi_password
+  
+sun:
+  latitude: !secret latitude
+  longitude: !secret longitude
+
+time:
+  - platform: sntp
+    id: sntp_time
+    update_interval: 360min   # Change sync interval from default 5min to 6 hours   
+    on_time_sync:
+      then:
+        - if:   # Publish the time the device was last restarted, but only once.
+            condition:
+              lambda: 'return id(device_last_restart).state == "";'
+            then:
+              - text_sensor.template.publish:
+                  id: device_last_restart
+                  state: !lambda 'return id(sntp_time).now().strftime("%a %d %b %Y - %I:%M:%S %p");' 

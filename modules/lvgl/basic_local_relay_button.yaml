@@ -7,10 +7,11 @@
               - label:
                   text_font: $icon_font
                   align: top_left
-                  text: $button_${id}_icon
                   id: lv_button_${id}_icon
+                  text: $button_${id}_icon
               - label:
                   align: bottom_left
+                  id: lv_button_${id}_label
                   text: $button_${id}_name
             on_click:
                 light.toggle: local_light_${id}
