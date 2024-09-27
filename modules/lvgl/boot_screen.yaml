@@ -8,7 +8,7 @@
             flex_flow: COLUMN_WRAP
           height: ${hight}            
           width: ${width}
-          text_font: roboto24
+          text_font: $text_font
           scrollbar_mode: 'off'
           bg_color: White
           bg_opa: COVER

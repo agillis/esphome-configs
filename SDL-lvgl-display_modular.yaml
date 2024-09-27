@@ -8,17 +8,19 @@ substitutions:
   floor_lamp:    "\U000F08DD"
   string_lights: "\U000F12BA"
 
-  icon_font: light40
-  text_font: roboto24  
+  icon_font: light24
+  text_font: roboto18  
   screen_hight: '480px'
-  screen_width: '480px'
+  screen_width: '800px'
   button_on_color: "Burnt_Sienna"
   button_off_color: "Very_Dark_Gray"  
   icon_on_color: "Yellow"
   icon_off_color: "Gray"
+  label_on_color: "White"  
+  label_off_color: "Gray"
   button_text_color: "White"
-  button_height_single: '109px'
-  button_height_double: '228px'
+  button_height_single: '85px'
+  button_height_double: '181px'
   button_width: '150px'
   touchscreen_idle_timeout: "120s"
   touchscreen_daytime_brightness: "100%"
@@ -39,6 +41,42 @@ substitutions:
   button_2_id: button_2
   button_2_icon: $floor_lamp
   button_2_device: "switch.athom_smart_plug_v3_50ebc0_switch"
+  
+  button_3_name: "Button 3"
+  button_3_id: button_3
+  button_3_icon: $floor_lamp
+  button_3_device: "switch.athom_smart_plug_v3_50ebc0_switch"
+
+  button_4_name: "Button 4"
+  button_4_id: button_4
+  button_4_icon: $floor_lamp
+  button_4_device: "switch.athom_smart_plug_v3_50ebc0_switch"
+
+  button_5_name: "Button 5"
+  button_5_id: button_5
+  button_5_icon: $floor_lamp
+  button_5_device: "switch.athom_smart_plug_v3_50ebc0_switch"
+
+  button_6_name: "Button 6"
+  button_6_id: button_6
+  button_6_icon: $floor_lamp
+  button_6_device: "switch.athom_smart_plug_v3_50ebc0_switch"
+  
+  button_7_name: "Button 7"
+  button_7_id: button_7
+  button_7_icon: $floor_lamp
+  button_7_device: "switch.athom_smart_plug_v3_50ebc0_switch"
+  
+  button_8_name: "Button 8"
+  button_8_id: button_8
+  button_8_icon: $floor_lamp
+  button_8_device: "switch.athom_smart_plug_v3_50ebc0_switch"
+
+  button_9_name: "Button 9"
+  button_9_id: button_9
+  button_9_icon: $floor_lamp
+  button_9_device: "switch.athom_smart_plug_v3_50ebc0_switch"  
+  
   
 globals:
   - id: late_night_mode
@@ -118,6 +156,13 @@ lvgl:
       widgets:
         - button: !include { file: modules/lvgl/basic_light_switch_button.yaml, vars: { id: 1, hight: $button_height_double } }
         - button: !include { file: modules/lvgl/basic_light_switch_button.yaml, vars: { id: 2, hight: $button_height_single } }
+        - button: !include { file: modules/lvgl/basic_light_switch_button.yaml, vars: { id: 3, hight: $button_height_single } }
+        - button: !include { file: modules/lvgl/basic_light_switch_button.yaml, vars: { id: 4, hight: $button_height_single } }
+        - button: !include { file: modules/lvgl/basic_light_switch_button.yaml, vars: { id: 5, hight: $button_height_single } }
+        - button: !include { file: modules/lvgl/basic_light_switch_button.yaml, vars: { id: 6, hight: $button_height_single } }
+        - button: !include { file: modules/lvgl/basic_light_switch_button.yaml, vars: { id: 7, hight: $button_height_single } }
+        - button: !include { file: modules/lvgl/basic_light_switch_button.yaml, vars: { id: 8, hight: $button_height_single } }  
+        - button: !include { file: modules/lvgl/basic_light_switch_button.yaml, vars: { id: 9, hight: $button_height_single } }          
     
 
 #-------------------------------------------
@@ -132,8 +177,8 @@ image:
     
 font:
   - file: "gfonts://Roboto"
-    id: roboto24
-    size: 24
+    id: roboto18
+    size: 18
     bpp: 4
     extras:
       # http://materialdesignicons.com/cdn/7.4.47/
@@ -157,8 +202,8 @@ font:
 
   # http://materialdesignicons.com/cdn/7.4.47/
   - file: 'https://github.com/Templarian/MaterialDesign-Webfont/raw/v7.4.47/fonts/materialdesignicons-webfont.ttf'
-    id: light40
-    size: 40
+    id: light24
+    size: 24
     bpp: 4
     glyphs: [
       "\U000F0335",  # mdi-lightbulb

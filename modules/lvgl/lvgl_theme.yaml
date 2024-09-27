@@ -1,10 +1,10 @@
 ---
     button:
-      text_font: roboto24
+      text_font: $text_font
       scroll_on_focus: true
       radius: 25px
       width: $button_width
-      height: 109px
+      height: $button_height_single
       pad_all: 10px
       shadow_width: 0 # This is required even though the default is suposed to be 0
       bg_color: Very_Dark_Gray
