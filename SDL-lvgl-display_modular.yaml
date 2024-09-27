@@ -2,11 +2,16 @@ substitutions:
   name: "sdl-lvgl"
   friendly_name: "SDL test system"
   
-  lightbulb:     "\U000F0335"
-  ceiling_light: "\U000F0769"
-  lamp:          "\U000F06B5"
-  floor_lamp:    "\U000F08DD"
-  string_lights: "\U000F12BA"
+  lightbulb:         "\U000F0335"
+  ceiling_light:     "\U000F0769"
+  lamp:              "\U000F06B5"
+  floor_lamp:        "\U000F08DD"
+  string_lights:     "\U000F12BA"
+  track-light:       "\U000F0914"
+  bulkhead-light:    "\U000F1A2F" 
+  led-strip:         "\U000F07D6" 
+  coach-lamp:        "\U000F1020"
+  ceiling-fan-light: "\U000F1798"
 
   icon_font: light24
   text_font: roboto18  
