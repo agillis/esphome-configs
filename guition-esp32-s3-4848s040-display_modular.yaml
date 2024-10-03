@@ -10,14 +10,14 @@ substitutions:
   lamp:              "\U000F06B5"
   floor_lamp:        "\U000F08DD"
   string_lights:     "\U000F12BA"
-  track-light:       "\U000F0914"
-  bulkhead-light:    "\U000F1A2F" 
-  led-strip:         "\U000F07D6" 
-  coach-lamp:        "\U000F1020"
-  ceiling-fan-light: "\U000F1798"
+  track_light:       "\U000F0914"
+  bulkhead_light:    "\U000F1A2F" 
+  led_strip:         "\U000F07D6" 
+  coach_lamp:        "\U000F1020"
+  ceiling_fan_light: "\U000F1798"
 
   icon_font: light40
-  text_font: roboto24  
+  text_font: roboto24
   screen_hight: '480px'
   screen_width: '480px'
   button_on_color: "Burnt_Sienna"
