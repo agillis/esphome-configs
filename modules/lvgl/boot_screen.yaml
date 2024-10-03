@@ -6,8 +6,8 @@
           layout: 
             type: flex
             flex_flow: COLUMN_WRAP
-          height: ${hight}            
-          width: ${width}
+          height: ${screen_hight}px            
+          width: ${screen_width}px
           text_font: $text_font
           scrollbar_mode: 'off'
           bg_color: White
@@ -25,7 +25,7 @@
                   args: [ 'id(esphome_version).state.c_str()' ]
             - label:
                 text:
-                  format: "Build Date: %s %s"
+                  format: "Build Date: %s - %s"
                   args: [__DATE__, __TIME__]                  
             - label:
                 id: connected_mac_label
@@ -43,7 +43,7 @@
                radius: 0
                pad_all: 0
                border_width: 0
-               width: ${width}
+               width: ${screen_width}px
                flex_grow: 1            
                widgets:
                  - button:

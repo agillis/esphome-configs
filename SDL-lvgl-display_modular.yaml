@@ -15,8 +15,8 @@ substitutions:
 
   icon_font: light24
   text_font: roboto18  
-  screen_hight: '480px'
-  screen_width: '800px'
+  screen_hight: "480"
+  screen_width: "800"
   button_on_color: "Burnt_Sienna"
   button_off_color: "Very_Dark_Gray"  
   icon_on_color: "Yellow"
@@ -146,7 +146,7 @@ lvgl:
   page_wrap: true
 
 # Boot Screen  
-  top_layer: !include { file: modules/lvgl/boot_screen.yaml, vars: { hight: $screen_hight, width: $screen_width  } }
+  top_layer: !include { file: modules/lvgl/boot_screen.yaml }
 
 # Main Page
   pages:
