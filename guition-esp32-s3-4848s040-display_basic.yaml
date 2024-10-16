@@ -176,12 +176,6 @@ lvgl:
 # Internal backlight + light attaced to internal relay
 #-------------------------------------------
 light:
-  - platform: monochromatic
-    output: GPIO38
-    name: Display Backlight
-    id: display_backlight
-    restore_mode: ALWAYS_ON
-
   - platform: binary
     output: internal_relay_1
     name: $button_1_name
