@@ -9,20 +9,20 @@
             id: lv_button_${id}_icon
             text_color: $icon_on_color
         - lvgl.widget.update:
-            id: lv_button_${id}_label 
-            text_color: $label_on_color             
+            id: lv_button_${id}_label
+            text_color: $label_on_color
         - lvgl.widget.update:
             id: lv_button_${id}
             state:
-              checked: true            
+              checked: true
     on_turn_off:
       then:
         - lvgl.widget.update:
             id: lv_button_${id}_icon
             text_color: $icon_off_color
         - lvgl.widget.update:
-            id: lv_button_${id}_label 
-            text_color: $label_off_color 
+            id: lv_button_${id}_label
+            text_color: $label_off_color
         - lvgl.widget.update:
             id: lv_button_${id}
             state:

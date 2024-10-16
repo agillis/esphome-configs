@@ -39,7 +39,7 @@ text_sensor:
     id: esphome_version
     name: "ESPHome Version"
     hide_timestamp: true
-    
+
   - platform: template
     name: 'Last Restart'
     id: device_last_restart

@@ -17,7 +17,7 @@
                   align: top_right
                   id: lv_button_${id}_slider
                   x: -5
-                  y: 5                  
+                  y: 5
                   width: 40
                   height: 165
                   pad_all: 0

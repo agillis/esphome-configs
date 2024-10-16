@@ -30,7 +30,7 @@ sensor:
 time:
   - platform: sntp
     id: sntp_time
-    update_interval: 360min   # Change sync interval from default 5min to 6 hours   
+    update_interval: 360min   # Change sync interval from default 5min to 6 hours
     on_time_sync:
       then:
         - if:   # Publish the time the device was last restarted, but only once.
@@ -40,7 +40,7 @@ time:
               - text_sensor.template.publish:
                   id: device_last_restart
                   state: !lambda 'return id(sntp_time).now().strftime("%a %d %b %Y - %I:%M:%S %p");'
-    on_time: 
+    on_time:
       - seconds: 0
         minutes: 0
         hours: 18,19,20,21,22,23,0,1,2,3,4,5,6,7,8
@@ -57,10 +57,10 @@ time:
                 - switch.turn_off: relay
                 - logger.log:
                     format: "Relay off"
-      - seconds: 0 
+      - seconds: 0
         minutes: 0
         hours: 9
         then:
           - switch.turn_off: relay # Turn off at 9AM
           - logger.log:
-             format: "Relay off"                    
+             format: "Relay off"

@@ -8,4 +8,3 @@
       - lvgl.slider.update:
           id: lv_button_${id}_slider
           value: !lambda return x;
-          

@@ -29,7 +29,7 @@ sun:
 time:
   - platform: sntp
     id: sntp_time
-    update_interval: 360min   # Change sync interval from default 5min to 6 hours   
+    update_interval: 360min   # Change sync interval from default 5min to 6 hours
     on_time_sync:
       then:
         - if:   # Publish the time the device was last restarted, but only once.

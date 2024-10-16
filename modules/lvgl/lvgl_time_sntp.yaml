@@ -7,16 +7,16 @@ sun:
       then:
       - light.turn_on:
           id: display_backlight
-          brightness: $touchscreen_nighttime_brightness         
+          brightness: $touchscreen_nighttime_brightness
   on_sunrise:
     then:
     - light.turn_on:
         id: display_backlight
-        brightness: $touchscreen_daytime_brightness 
+        brightness: $touchscreen_daytime_brightness
 time:
   - platform: sntp
     id: system_time
-    update_interval: 360min   # Change sync interval from default 5min to 6 hours  
+    update_interval: 360min   # Change sync interval from default 5min to 6 hours
     on_time_sync:
       - if: # Update the laster restart time
           condition:
@@ -37,7 +37,7 @@ time:
               id: display_backlight
           - lvgl.pause:
               show_snow: true
-          
+
       - seconds: 0
         minutes: $screen_wake_minute
         hours: $screen_wake_hour
@@ -48,4 +48,4 @@ time:
           - lvgl.resume:
           - light.turn_on:
               id: display_backlight
-              brightness: $touchscreen_nighttime_brightness    
+              brightness: $touchscreen_nighttime_brightness

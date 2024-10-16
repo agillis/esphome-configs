@@ -4,15 +4,15 @@ substitutions:
   device_description: "Guition ESP32-S3-4848S040 480*480 Smart Screen"
   project_name: "Guition.ESP32_S3_4848S040"
   project_version: "1.0.0"
-  
+
   lightbulb:         "\U000F0335"
   ceiling_light:     "\U000F0769"
   lamp:              "\U000F06B5"
   floor_lamp:        "\U000F08DD"
   string_lights:     "\U000F12BA"
   track_light:       "\U000F0914"
-  bulkhead_light:    "\U000F1A2F" 
-  led_strip:         "\U000F07D6" 
+  bulkhead_light:    "\U000F1A2F"
+  led_strip:         "\U000F07D6"
   coach_lamp:        "\U000F1020"
   ceiling_fan_light: "\U000F1798"
 
@@ -21,10 +21,10 @@ substitutions:
   screen_height: '480px'
   screen_width: '480px'
   button_on_color: "Burnt_Sienna"
-  button_off_color: "Very_Dark_Gray"  
+  button_off_color: "Very_Dark_Gray"
   icon_on_color: "Yellow"
   icon_off_color: "Gray"
-  label_on_color: "White"  
+  label_on_color: "White"
   label_off_color: "Gray"
   button_text_color: "White"
   button_height_single: '109px'
@@ -39,37 +39,37 @@ substitutions:
   # Screen wakes up at 5:30am
   screen_wake_hour: '5'
   screen_wake_minute: '30'
-  
+
   button_1_name: "Local Light"
   button_1_id: local_light
   button_1_icon: $lightbulb
   button_1_device: "internal_relay_1"
-  
+
   button_2_name: "Button 2"
   button_2_id: couch_lamp
   button_2_icon: $lightbulb
   button_2_device: "switch.athom_smart_plug_v3_50ebc0_switch"
-  
+
   # Button 3 is an empty object that requires no settings. It just pushes everything down one button
-  
+
   button_4_name: "RGB light"
   button_4_id: rgb_light
   button_4_icon: $string_lights
   button_4_device: light.athom_rgb_light_d93662_rgb_light_strip
-  
+
 globals:
 # Keeps track of late night mode for turning off the backlight
   - id: late_night_mode
     type: bool
     restore_value: false
-    initial_value: 'false'  
+    initial_value: 'false'
 
 packages:
   base: !include modules/common_base.yaml
   webserver: !include modules/wifi_base.yaml
   hardware: !include modules/hardware/guition-esp32-s3-4848s040.yaml
   colors: !include modules/common/color.yaml
-  time: !include modules/lvgl/lvgl_time_sntp.yaml  
+  time: !include modules/lvgl/lvgl_time_sntp.yaml
   sensors: !include modules/lvgl/lvgl_sensors_base.yaml
 
 esphome:
@@ -78,10 +78,10 @@ esphome:
     then:
       - delay: 60s
       - lvgl.widget.hide: boot_screen
- 
-# -------------------------------------------------------------------------    
+
+# -------------------------------------------------------------------------
 # Button state - Update state for Homeassistant objects and internal relays
-# ------------------------------------------------------------------------- 
+# -------------------------------------------------------------------------
 
 # Internal Relays defined as lights go here
 light:
@@ -91,14 +91,14 @@ light:
 text_sensor:
   - !include { file: modules/lvgl/basic_light_switch_button_state.yaml, vars: { id: 2 } }
   - !include { file: modules/lvgl/basic_light_switch_button_state.yaml, vars: { id: 4 } }
-  
-sensor:  
+
+sensor:
   - !include { file: modules/lvgl/dimmer_light_switch_state.yaml, vars: { id: 4 } }
 
 
 #-------------------------------------------
 # LVGL pages and Buttons
-#-------------------------------------------    
+#-------------------------------------------
 
 # Wake screen on touch
 touchscreen:
@@ -106,34 +106,34 @@ touchscreen:
     then:
       - logger.log: "LVGL is active"
       - lvgl.resume:
-      - if:   
+      - if:
       # Only turn on baclight and set to 50% if late_night_mode is on
           condition:
             - lambda: |-
                 return id(late_night_mode);
-          then:      
+          then:
             - light.turn_on:
                 id: display_backlight
-                brightness: 50%  
+                brightness: 50%
 
 # Main LVGL section
 lvgl:
-  displays: 
+  displays:
     - my_display
   touchscreens:
     - my_touchscreen
   on_idle: !include { file: modules/lvgl/lvgl_touchscreen_idle.yaml }
-    
+
   theme: !include { file: modules/lvgl/lvgl_theme.yaml }
   page_wrap: true
 
-# Boot Screen  
+# Boot Screen
   top_layer: !include { file: modules/lvgl/boot_screen.yaml, vars: { height: $screen_height, width: $screen_width  } }
 
 # Main Page
   pages:
     - id: main_page
-      layout: 
+      layout:
         type: flex
         flex_flow: column_wrap
       width: 100%
@@ -144,7 +144,7 @@ lvgl:
         - button: !include { file: modules/lvgl/basic_local_relay_button.yaml, vars: { id: 1, height: $button_height_double } }
         - button: !include { file: modules/lvgl/basic_light_switch_button.yaml, vars: { id: 2, height: $button_height_single } }
         - button: !include { file: modules/lvgl/transparent_empty_button.yaml, vars: { id: 3, height: $button_height_single } }
-        - button: !include { file: modules/lvgl/dimmer_light_switch_button.yaml, vars: { id: 4, height: $button_height_double } }        
+        - button: !include { file: modules/lvgl/dimmer_light_switch_button.yaml, vars: { id: 4, height: $button_height_double } }
 
 #-------------------------------------------
 # Graphics and Fonts
@@ -155,7 +155,7 @@ image:
     resize: 460x90
     type: RGB565
     use_transparency: true
-    
+
 font:
   - file: "gfonts://Roboto"
     id: roboto24
@@ -192,4 +192,4 @@ font:
       "\U000F06B5",  # mdi-lamp
       "\U000F08DD",  # mdi-floor-lamp
       "\U000F12BA",  # mdi-string-lights
-    ]       
+    ]

@@ -4,7 +4,7 @@ substitutions:
   device_description: "Sunton ESP32-S3-8048S070 480px X 800px Smart Screen"
   project_name: "Sunton.ESP32_S3_8048S070"
   project_version: "0.9.0"
-  
+
   lightbulb:     "\U000F0335"
   ceiling_light: "\U000F0769"
   lamp:          "\U000F06B5"
@@ -12,7 +12,7 @@ substitutions:
   string_lights: "\U000F12BA"
 
   icon_font: light40
-  text_font: roboto24  
+  text_font: roboto24
   button_on_color: "Dark_Orange"
   icon_on_color: "Yellow"
   button_off_color: "Very_Dark_Gray"
@@ -20,8 +20,8 @@ substitutions:
   button_text_color: "White"
   button_height_single: '109px'
   button_height_double: '228px'
-  button_width: '150px' 
-  
+  button_width: '150px'
+
   button_1_name: "Local Light"
   button_1_id: local_light
   button_1_icon: $lightbulb
@@ -41,22 +41,22 @@ ota:
 web_server:
   port: 80
   version: 3
-  
+
 wifi:
   ssid: !secret wifi_ssid
-  password: !secret wifi_password 
-  
+  password: !secret wifi_password
+
 packages:
   common_files:
     url: https://github.com/agillis/esphome-configs
     files: [modules/common/color.yaml,
             modules/hardware/sunton-esp32-8048s070.yaml
     ]
-    
+
 time:
   - platform: sntp
     id: sntp_time
-    update_interval: 360min   # Change sync interval from default 5min to 6 hours  
+    update_interval: 360min   # Change sync interval from default 5min to 6 hours
     on_time_sync:
       - if:
           condition:
@@ -83,13 +83,13 @@ sensor:
     unit_of_measurement: "%"
     entity_category: diagnostic
 
-    
+
 text_sensor:
   - platform: homeassistant
     entity_id: weather.forecast_home
     id: weather_now_condition
     internal: true
-    
+
   - platform: version
     id: esphome_version
     name: "ESPHome Version"
@@ -99,7 +99,7 @@ text_sensor:
     mac_address:
       id: mac_address
       name: "Mac Address"
-      entity_category: diagnostic  
+      entity_category: diagnostic
     ip_address:
       id: ip_address
       name: "IP Address"
@@ -110,7 +110,7 @@ text_sensor:
               id: ip_address_label
               text:
                 format: "IP Address: %s"
-                args: [ 'id(ip_address).state.c_str()' ] 
+                args: [ 'id(ip_address).state.c_str()' ]
     ssid:
       id: connected_ssid
       name: "Connected SSID"
@@ -127,17 +127,17 @@ text_sensor:
     name: 'Last Restart'
     id: device_last_restart
     icon: mdi:clock
-    entity_category: diagnostic                
+    entity_category: diagnostic
 
 binary_sensor:
   - platform: status
     name: "Status"
-    entity_category: diagnostic    
-    
- 
+    entity_category: diagnostic
+
+
 #-------------------------------------------
 # LVGL Buttons
-#-------------------------------------------     
+#-------------------------------------------
 lvgl:
   displays:
     - display_id: my_display
@@ -160,7 +160,7 @@ lvgl:
       #- lvgl.pause:
       #- light.turn_off:
       #    id: display_backlight
-      #    transition_length: 5s    
+      #    transition_length: 5s
 
   style_definitions:
     - id: no_checked_color
@@ -184,14 +184,14 @@ lvgl:
         text_color: 0xB6B6B6
 
   page_wrap: true
-  
+
   top_layer:
     widgets:
       - obj:
           id: boot_screen
-          layout: 
+          layout:
             type: flex
-            flex_flow: COLUMN_WRAP 
+            flex_flow: COLUMN_WRAP
           width: 800px
           height: 480px
           text_font: roboto24
@@ -207,11 +207,11 @@ lvgl:
                 pad_bottom: 10
             - label:
                 id: ip_address_label
-                text: "IP Address:"                
+                text: "IP Address:"
             - label:
                 text:
                   format: "MAC Address: %s"
-                  args: [ 'id(mac_address).state.c_str()' ]                
+                  args: [ 'id(mac_address).state.c_str()' ]
             - label:
                 id: connected_ssid_label
                 text: "Connected SSID:"
@@ -227,7 +227,7 @@ lvgl:
                pad_all: 0
                border_width: 0
                width: 470px
-               flex_grow: 1            
+               flex_grow: 1
                widgets:
                  - button:
                     align: bottom_right
@@ -242,11 +242,11 @@ lvgl:
                          text: "OK"
                     on_press:
                      - lvgl.widget.hide: boot_screen
- 
+
   pages:
     - id: main_page
       skip: true
-      layout: 
+      layout:
         type: flex
         flex_flow: column_wrap
       width: 100%
@@ -314,6 +314,5 @@ font:
       "\U000F06B5",  # mdi-lamp
       "\U000F08DD",  # mdi-floor-lamp
       "\U000F12BA",  # mdi-string-lights
-    ]         
+    ]
 
-              

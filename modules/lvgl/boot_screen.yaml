@@ -1,13 +1,13 @@
 ---
-# Boot Screen  
+# Boot Screen
     widgets:
       - obj:
           id: boot_screen
-          layout: 
+          layout:
             type: flex
             flex_flow: COLUMN_WRAP
-          height: ${screen_height}px            
-          width: ${screen_width}px
+          height: ${screen_height}
+          width: ${screen_width}
           text_font: $text_font
           scrollbar_mode: 'off'
           bg_color: White
@@ -26,13 +26,13 @@
             - label:
                 text:
                   format: "Build Date: %s - %s"
-                  args: [__DATE__, __TIME__]                  
+                  args: [__DATE__, __TIME__]
             - label:
                 id: connected_mac_label
                 text: "MAC Address: Not Connected"
             - label:
                 id: ip_address_label
-                text: "IP Address: Not Connected"                
+                text: "IP Address: Not Connected"
             - label:
                 id: connected_ssid_label
                 text: "Connected SSID: Not Connected"
@@ -43,8 +43,8 @@
                radius: 0
                pad_all: 0
                border_width: 0
-               width: ${screen_width}px
-               flex_grow: 1            
+               width: ${screen_width}
+               flex_grow: 1
                widgets:
                  - button:
                     align: bottom_right
@@ -59,4 +59,4 @@
                          align: center
                          text: "OK"
                     on_press:
-                     - lvgl.widget.hide: boot_screen  
+                     - lvgl.widget.hide: boot_screen

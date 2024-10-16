@@ -15,8 +15,8 @@ esphome:
 
 host:
   mac_address: "62:23:45:AF:B3:01"
-  
-touchscreen:  
+
+touchscreen:
   - platform: sdl
     id: my_touchscreen
     display: my_display
@@ -28,7 +28,7 @@ display:
     auto_clear_enabled: false
     dimensions:
       width: 480
-      height: 480  
+      height: 480
 
 packages:
   common_files:
@@ -76,7 +76,7 @@ script:
           id: hour_hand
           value: !lambda |-
             auto now = id(homeassistant_time).now();
-            return std::fmod(now.hour, 12) * 60 + now.minute;            
+            return std::fmod(now.hour, 12) * 60 + now.minute;
 
 
 text_sensor:
@@ -92,13 +92,13 @@ text_sensor:
 binary_sensor:
   - platform: status
     name: "Status"
-    entity_category: diagnostic      
+    entity_category: diagnostic
 
 # -------------------------------------------
 # LVGL Buttons
 # -------------------------------------------
 lvgl:
-  displays: 
+  displays:
     - my_display
   touchscreens:
     - my_touchscreen
@@ -125,14 +125,14 @@ lvgl:
         text_color: 0xB6B6B6
 
   page_wrap: true
-  
+
   top_layer:
     widgets:
       - obj:
           id: boot_screen
-          layout: 
+          layout:
             type: flex
-            flex_flow: COLUMN_WRAP 
+            flex_flow: COLUMN_WRAP
           width: 480px
           height: 480px
           text_font: roboto24
@@ -147,7 +147,7 @@ lvgl:
                 pad_bottom: 10
             - label:
                 id: ip_address_label
-                text: "IP Address:"                
+                text: "IP Address:"
             - label:
                 text: "MAC Address:"
             - label:
@@ -165,7 +165,7 @@ lvgl:
                pad_all: 0
                border_width: 0
                width: 470px
-               flex_grow: 1            
+               flex_grow: 1
                widgets:
                  - button:
                     align: bottom_right
@@ -180,7 +180,7 @@ lvgl:
                          text: "OK"
                     on_press:
                      - lvgl.widget.hide: boot_screen
- 
+
   pages:
     - id: main_page
       width: 100%
@@ -193,7 +193,7 @@ lvgl:
               align: center
               pad_all: 4
               bg_color: Black
-              border_width: 0  
+              border_width: 0
               widgets:
               - meter:
                   height: 100%
@@ -229,7 +229,7 @@ lvgl:
                         width: 3
                         count: 12
                         length: 20
-                        color: Black                       
+                        color: Black
 
                     # Hour hand
                     - angle_range: 360
@@ -254,7 +254,7 @@ lvgl:
                             width: 2
                             color: Red
                             r_mod: -10
-                            
+
 # -------------------------------------------
 # Graphics and Fonts
 # -------------------------------------------
