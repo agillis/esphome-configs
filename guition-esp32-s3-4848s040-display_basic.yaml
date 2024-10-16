@@ -18,8 +18,8 @@ substitutions:
   button_off_color: "Very_Dark_Gray"
   icon_off_color: "White"
   button_text_color: "White"
-  button_hight_single: '109px'
-  button_hight_double: '228px'
+  button_height_single: '109px'
+  button_height_double: '228px'
   button_width: '150px' 
   
   button_1_name: "Local Light"
@@ -134,7 +134,7 @@ lvgl:
       scroll_on_focus: true
       radius: 25
       width: $button_width
-      height: $button_hight_single
+      height: $button_height_single
       pad_left: 10px
       pad_top: 10px
       pad_bottom: 10px
@@ -159,7 +159,7 @@ lvgl:
       pad_all: 5
       widgets:
         - button:
-            height: $button_hight_double
+            height: $button_height_double
             checkable: true
             id: lv_button_1
             widgets:

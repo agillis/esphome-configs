@@ -1,6 +1,6 @@
 ---
 # Basic light switch button - define its setting in substitutions
-            height: ${hight}
+            height: ${height}
             checkable: true
             id: lv_button_${id}
             widgets:

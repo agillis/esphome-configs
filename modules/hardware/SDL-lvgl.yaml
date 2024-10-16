@@ -16,7 +16,7 @@ display:
     auto_clear_enabled: false
     dimensions:
       width: $screen_width
-      height: $screen_hight
+      height: $screen_height
 
 touchscreen:  
   platform: sdl

@@ -6,7 +6,7 @@
           layout: 
             type: flex
             flex_flow: COLUMN_WRAP
-          height: ${screen_hight}px            
+          height: ${screen_height}px            
           width: ${screen_width}px
           text_font: $text_font
           scrollbar_mode: 'off'

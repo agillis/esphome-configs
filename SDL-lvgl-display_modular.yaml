@@ -15,7 +15,7 @@ substitutions:
 
   icon_font: light24
   text_font: roboto18  
-  screen_hight: "480"
+  screen_height: "480"
   screen_width: "800"
   button_on_color: "Burnt_Sienna"
   button_off_color: "Very_Dark_Gray"  
@@ -159,15 +159,15 @@ lvgl:
       bg_opa: cover
       pad_all: 5
       widgets:
-        - button: !include { file: modules/lvgl/basic_light_switch_button.yaml, vars: { id: 1, hight: $button_height_double } }
-        - button: !include { file: modules/lvgl/basic_light_switch_button.yaml, vars: { id: 2, hight: $button_height_single } }
-        - button: !include { file: modules/lvgl/basic_light_switch_button.yaml, vars: { id: 3, hight: $button_height_single } }
-        - button: !include { file: modules/lvgl/basic_light_switch_button.yaml, vars: { id: 4, hight: $button_height_single } }
-        - button: !include { file: modules/lvgl/basic_light_switch_button.yaml, vars: { id: 5, hight: $button_height_single } }
-        - button: !include { file: modules/lvgl/basic_light_switch_button.yaml, vars: { id: 6, hight: $button_height_single } }
-        - button: !include { file: modules/lvgl/basic_light_switch_button.yaml, vars: { id: 7, hight: $button_height_single } }
-        - button: !include { file: modules/lvgl/basic_light_switch_button.yaml, vars: { id: 8, hight: $button_height_single } }  
-        - button: !include { file: modules/lvgl/basic_light_switch_button.yaml, vars: { id: 9, hight: $button_height_single } }          
+        - button: !include { file: modules/lvgl/basic_light_switch_button.yaml, vars: { id: 1, height: $button_height_double } }
+        - button: !include { file: modules/lvgl/basic_light_switch_button.yaml, vars: { id: 2, height: $button_height_single } }
+        - button: !include { file: modules/lvgl/basic_light_switch_button.yaml, vars: { id: 3, height: $button_height_single } }
+        - button: !include { file: modules/lvgl/basic_light_switch_button.yaml, vars: { id: 4, height: $button_height_single } }
+        - button: !include { file: modules/lvgl/basic_light_switch_button.yaml, vars: { id: 5, height: $button_height_single } }
+        - button: !include { file: modules/lvgl/basic_light_switch_button.yaml, vars: { id: 6, height: $button_height_single } }
+        - button: !include { file: modules/lvgl/basic_light_switch_button.yaml, vars: { id: 7, height: $button_height_single } }
+        - button: !include { file: modules/lvgl/basic_light_switch_button.yaml, vars: { id: 8, height: $button_height_single } }  
+        - button: !include { file: modules/lvgl/basic_light_switch_button.yaml, vars: { id: 9, height: $button_height_single } }          
     
 
 #-------------------------------------------
