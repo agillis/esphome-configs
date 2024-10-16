@@ -192,4 +192,9 @@ font:
       "\U000F06B5",  # mdi-lamp
       "\U000F08DD",  # mdi-floor-lamp
       "\U000F12BA",  # mdi-string-lights
+      "\U000F1A2F",  # mdi-track-light
+      "\U000F1A2F",  # mdi-bulkhead_light:    
+      "\U000F07D6",  # mdi-led-strip
+      "\U000F1020",  # mdi-coach-lamp
+      "\U000F1798",  # mdi-ceiling-fan-light
     ]
