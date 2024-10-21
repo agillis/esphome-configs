@@ -15,15 +15,17 @@ substitutions:
 
   icon_font: light24
   text_font: roboto18
-  screen_height: "480"
-  screen_width: "800"
+  screen_height: "480px"
+  screen_width: "800px"
+  sdl_height: "480"
+  sdl_width: "800"  
   button_on_color: "Burnt_Sienna"
   button_off_color: "Very_Dark_Gray"
-  icon_on_color: "Yellow"
-  icon_off_color: "Gray"
-  label_on_color: "White"
-  label_off_color: "Gray"
-  button_text_color: "White"
+  icon_on_color: "yellow"
+  icon_off_color: "gray"
+  label_on_color: "white"
+  label_off_color: "gray"
+  button_text_color: "white"
   button_height_single: '85px'
   button_height_double: '181px'
   button_width: '150px'
@@ -89,6 +91,11 @@ globals:
     restore_value: false
     initial_value: 'false'
 
+# We need this until 2024.11.0
+external_components:
+  - source: github://pr#7631
+    components: [ image, lvgl ]  
+
 packages:
   base: !include modules/common_base.yaml
 #  webserver: !include modules/wifi_base.yaml
@@ -111,8 +118,8 @@ esphome:
 
 # Homeassistant lights go here
 text_sensor:
-  - !include { file: modules/lvgl/basic_light_switch_button_state.yaml, vars: { id: 1 } }
-  - !include { file: modules/lvgl/basic_light_switch_button_state.yaml, vars: { id: 2 } }
+  - !include { file: modules/lvgl/basic_switch_button_state.yaml, vars: { id: 1 } }
+  - !include { file: modules/lvgl/basic_switch_button_state.yaml, vars: { id: 2 } }
 
 #-------------------------------------------
 # LVGL pages and Buttons
@@ -159,15 +166,15 @@ lvgl:
       bg_opa: cover
       pad_all: 5
       widgets:
-        - button: !include { file: modules/lvgl/basic_light_switch_button.yaml, vars: { id: 1, height: $button_height_double } }
-        - button: !include { file: modules/lvgl/basic_light_switch_button.yaml, vars: { id: 2, height: $button_height_single } }
-        - button: !include { file: modules/lvgl/basic_light_switch_button.yaml, vars: { id: 3, height: $button_height_single } }
-        - button: !include { file: modules/lvgl/basic_light_switch_button.yaml, vars: { id: 4, height: $button_height_single } }
-        - button: !include { file: modules/lvgl/basic_light_switch_button.yaml, vars: { id: 5, height: $button_height_single } }
-        - button: !include { file: modules/lvgl/basic_light_switch_button.yaml, vars: { id: 6, height: $button_height_single } }
-        - button: !include { file: modules/lvgl/basic_light_switch_button.yaml, vars: { id: 7, height: $button_height_single } }
-        - button: !include { file: modules/lvgl/basic_light_switch_button.yaml, vars: { id: 8, height: $button_height_single } }
-        - button: !include { file: modules/lvgl/basic_light_switch_button.yaml, vars: { id: 9, height: $button_height_single } }
+        - button: !include { file: modules/lvgl/basic_switch_button.yaml, vars: { id: 1, height: $button_height_double } }
+        - button: !include { file: modules/lvgl/basic_switch_button.yaml, vars: { id: 2, height: $button_height_single } }
+        - button: !include { file: modules/lvgl/basic_switch_button.yaml, vars: { id: 3, height: $button_height_single } }
+        - button: !include { file: modules/lvgl/basic_switch_button.yaml, vars: { id: 4, height: $button_height_single } }
+        - button: !include { file: modules/lvgl/basic_switch_button.yaml, vars: { id: 5, height: $button_height_single } }
+        - button: !include { file: modules/lvgl/basic_switch_button.yaml, vars: { id: 6, height: $button_height_single } }
+        - button: !include { file: modules/lvgl/basic_switch_button.yaml, vars: { id: 7, height: $button_height_single } }
+        - button: !include { file: modules/lvgl/basic_switch_button.yaml, vars: { id: 8, height: $button_height_single } }
+        - button: !include { file: modules/lvgl/basic_switch_button.yaml, vars: { id: 9, height: $button_height_single } }
 
 
 #-------------------------------------------
@@ -184,7 +191,7 @@ font:
   - file: "gfonts://Roboto"
     id: roboto18
     size: 18
-    bpp: 4
+    bpp: 8
     extras:
       # http://materialdesignicons.com/cdn/7.4.47/
       - file: 'https://github.com/Templarian/MaterialDesign-Webfont/raw/v7.4.47/fonts/materialdesignicons-webfont.ttf'
@@ -209,7 +216,7 @@ font:
   - file: 'https://github.com/Templarian/MaterialDesign-Webfont/raw/v7.4.47/fonts/materialdesignicons-webfont.ttf'
     id: light24
     size: 24
-    bpp: 4
+    bpp: 8
     glyphs: [
       "\U000F0335",  # mdi-lightbulb
       "\U000F0769",  # mdi-ceiling-light

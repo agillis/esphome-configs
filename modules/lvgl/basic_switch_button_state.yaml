@@ -1,0 +1,29 @@
+---
+# Basic light switch button state - define its setting in substitutions
+    platform: homeassistant
+    name: "$button_${id}_name"
+    entity_id: $button_${id}_device
+    on_value:
+      then:
+        - lvgl.widget.update:
+            id: lv_button_${id}
+            state:
+              checked: !lambda return (0 == x.compare(std::string{"on"}));
+              disabled: !lambda return ((0 == x.compare(std::string{"unavailable"})) or (0 == x.compare(std::string{"unknown"})));
+        - if:
+            condition:
+              lambda: return (0 == x.compare(std::string{"on"}));
+            then:
+              - lvgl.widget.update:
+                  id: lv_button_${id}_icon
+                  text_color: $icon_on_color
+              - lvgl.widget.update:
+                  id: lv_button_${id}_label
+                  text_color: $label_on_color
+            else:
+              - lvgl.widget.update:
+                  id: lv_button_${id}_icon
+                  text_color: $icon_off_color
+              - lvgl.widget.update:
+                  id: lv_button_${id}_label
+                  text_color: $label_off_color

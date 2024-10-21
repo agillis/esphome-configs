@@ -1,0 +1,20 @@
+---
+# Basic light switch button - define its setting in substitutions
+            height: ${height}
+            checkable: true
+            id: lv_button_${id}
+            widgets:
+              - label:
+                  text_font: $icon_font
+                  align: top_left
+                  id: lv_button_${id}_icon
+                  text: $button_${id}_icon
+              - label:
+                  align: bottom_left
+                  id: lv_button_${id}_label
+                  text: $button_${id}_name
+            on_click:
+                - homeassistant.service:
+                    service: switch.toggle
+                    data:
+                      entity_id: $button_${id}_device

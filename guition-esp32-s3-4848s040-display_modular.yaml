@@ -22,11 +22,11 @@ substitutions:
   screen_width: '480px'
   button_on_color: "Burnt_Sienna"
   button_off_color: "Very_Dark_Gray"
-  icon_on_color: "Yellow"
-  icon_off_color: "Gray"
-  label_on_color: "White"
-  label_off_color: "Gray"
-  button_text_color: "White"
+  icon_on_color: "yellow"
+  icon_off_color: "gray"
+  label_on_color: "white"
+  label_off_color: "gray"
+  button_text_color: "white"
   button_height_single: '109px'
   button_height_double: '228px'
   button_width: '150px'
@@ -63,6 +63,11 @@ globals:
     type: bool
     restore_value: false
     initial_value: 'false'
+    
+# We need this until 2024.11.0
+external_components:
+  - source: github://pr#7631
+    components: [ image, lvgl ]    
 
 packages:
   base: !include modules/common_base.yaml
@@ -89,11 +94,11 @@ light:
 
 # Update button state from Home Assistant
 text_sensor:
-  - !include { file: modules/lvgl/basic_light_switch_button_state.yaml, vars: { id: 2 } }
-  - !include { file: modules/lvgl/basic_light_switch_button_state.yaml, vars: { id: 4 } }
+  - !include { file: modules/lvgl/basic_switch_button_state.yaml, vars: { id: 2 } }
+  - !include { file: modules/lvgl/basic_switch_button_state.yaml, vars: { id: 4 } }
 
 sensor:
-  - !include { file: modules/lvgl/dimmer_light_switch_state.yaml, vars: { id: 4 } }
+  - !include { file: modules/lvgl/dimmer_light_state.yaml, vars: { id: 4 } }
 
 
 #-------------------------------------------
@@ -135,16 +140,16 @@ lvgl:
     - id: main_page
       layout:
         type: flex
-        flex_flow: column_wrap
+        flex_flow: COLUMN_WRAP
       width: 100%
-      bg_color: Black
+      bg_color: black
       bg_opa: cover
       pad_all: 5
       widgets: # Include all the buttons
         - button: !include { file: modules/lvgl/basic_local_relay_button.yaml, vars: { id: 1, height: $button_height_double } }
-        - button: !include { file: modules/lvgl/basic_light_switch_button.yaml, vars: { id: 2, height: $button_height_single } }
+        - button: !include { file: modules/lvgl/basic_switch_button.yaml, vars: { id: 2, height: $button_height_single } }
         - button: !include { file: modules/lvgl/transparent_empty_button.yaml, vars: { id: 3, height: $button_height_single } }
-        - button: !include { file: modules/lvgl/dimmer_light_switch_button.yaml, vars: { id: 4, height: $button_height_double } }
+        - button: !include { file: modules/lvgl/dimmer_light_button.yaml, vars: { id: 4, height: $button_height_double } }
 
 #-------------------------------------------
 # Graphics and Fonts
