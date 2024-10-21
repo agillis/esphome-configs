@@ -15,8 +15,8 @@ display:
     update_interval: never
     auto_clear_enabled: false
     dimensions:
-      width: $screen_width
-      height: $screen_height
+      width: $sdl_width
+      height: $sdl_height
 
 touchscreen:  
   platform: sdl
