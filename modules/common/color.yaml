@@ -3,11 +3,13 @@ color:
       hex: 'CC5E14'
     - id: ep_orange
       hex: 'f37320'
-      
+    - id: ep_blue
+      hex: '01b4de'      
 
 # The standard RGB color table is already in ESPHome!
 # RGB color table
 # Imported from https://www.rapidtables.com/web/color/RGB_Color.html
+
 # - id: aliceblue
 #   hex: 'F0F8FF'
 # - id: antiquewhite
