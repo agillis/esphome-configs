@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg
+   width="20"
+   height="20"
+   viewBox="0 0 20 20"
+   version="1.1"
+   id="svg1"
+   sodipodi:docname="produced_icon.svg"
+   inkscape:version="1.3.2 (091e20e, 2023-11-25, custom)"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg">
+  <defs
+     id="defs1" />
+  <sodipodi:namedview
+     id="namedview1"
+     pagecolor="#ffffff"
+     bordercolor="#000000"
+     borderopacity="0.25"
+     inkscape:showpageshadow="2"
+     inkscape:pageopacity="0.0"
+     inkscape:pagecheckerboard="0"
+     inkscape:deskcolor="#d1d1d1"
+     inkscape:zoom="59.05"
+     inkscape:cx="9.9915326"
+     inkscape:cy="10"
+     inkscape:window-width="3440"
+     inkscape:window-height="1377"
+     inkscape:window-x="-8"
+     inkscape:window-y="-8"
+     inkscape:window-maximized="1"
+     inkscape:current-layer="svg1" />
+  <g
+     id="Produced"
+     transform="translate(1.602 1.6)">
+    <rect
+       id="Rectangle_5234"
+       data-name="Rectangle 5234"
+       width="20"
+       height="20"
+       transform="translate(-1.602 -1.6)"
+       fill="#f37320"
+       opacity="0" />
+    <path
+       id="Path_12530"
+       data-name="Path 12530"
+       d="M13.555,17.825a4.27,4.27,0,1,0-4.27-4.27A4.27,4.27,0,0,0,13.555,17.825Z"
+       transform="translate(-5.303 -5.302)"
+       fill="none"
+       stroke="#01b4de"
+       stroke-width="1.3" />
+    <path
+       id="Path_12531"
+       data-name="Path 12531"
+       d="M15,3.572V5.279"
+       transform="translate(-6.747 -3.858)"
+       fill="none"
+       stroke="#01b4de"
+       stroke-linecap="round"
+       stroke-width="1.3" />
+    <path
+       id="Path_12532"
+       data-name="Path 12532"
+       d="M15,24.143v1.708"
+       transform="translate(-6.747 -9.059)"
+       fill="none"
+       stroke="#01b4de"
+       stroke-linecap="round"
+       stroke-width="1.3" />
+    <path
+       id="Path_12533"
+       data-name="Path 12533"
+       d="M22.673,6.92l-1.2,1.2"
+       transform="translate(-8.383 -4.704)"
+       fill="none"
+       stroke="#01b4de"
+       stroke-linecap="round"
+       stroke-width="1.3" />
+    <path
+       id="Path_12534"
+       data-name="Path 12534"
+       d="M8.124,21.469l-1.2,1.2"
+       transform="translate(-4.704 -8.382)"
+       fill="none"
+       stroke="#01b4de"
+       stroke-linecap="round"
+       stroke-width="1.3" />
+    <path
+       id="Path_12535"
+       data-name="Path 12535"
+       d="M25.851,15H24.143"
+       transform="translate(-9.059 -6.747)"
+       fill="none"
+       stroke="#01b4de"
+       stroke-linecap="round"
+       stroke-width="1.3" />
+    <path
+       id="Path_12536"
+       data-name="Path 12536"
+       d="M5.279,15H3.571"
+       transform="translate(-3.858 -6.747)"
+       fill="none"
+       stroke="#01b4de"
+       stroke-linecap="round"
+       stroke-width="1.3" />
+    <path
+       id="Path_12537"
+       data-name="Path 12537"
+       d="M22.673,22.673l-1.2-1.2"
+       transform="translate(-8.383 -8.382)"
+       fill="none"
+       stroke="#01b4de"
+       stroke-linecap="round"
+       stroke-width="1.3" />
+    <path
+       id="Path_12538"
+       data-name="Path 12538"
+       d="M8.124,8.124l-1.2-1.2"
+       transform="translate(-4.704 -4.704)"
+       fill="none"
+       stroke="#01b4de"
+       stroke-linecap="round"
+       stroke-width="1.3" />
+  </g>
+</svg>

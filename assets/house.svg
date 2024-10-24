@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg
+   width="30.322"
+   height="30.296"
+   viewBox="0 0 30.322 30.296"
+   version="1.1"
+   id="svg1"
+   sodipodi:docname="house.svg"
+   inkscape:version="1.3.2 (091e20e, 2023-11-25, custom)"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg">
+  <defs
+     id="defs1" />
+  <sodipodi:namedview
+     id="namedview1"
+     pagecolor="#ffffff"
+     bordercolor="#000000"
+     borderopacity="0.25"
+     inkscape:showpageshadow="2"
+     inkscape:pageopacity="0.0"
+     inkscape:pagecheckerboard="0"
+     inkscape:deskcolor="#d1d1d1"
+     inkscape:zoom="38.982044"
+     inkscape:cx="15.160826"
+     inkscape:cy="15.148"
+     inkscape:window-width="3440"
+     inkscape:window-height="1377"
+     inkscape:window-x="-8"
+     inkscape:window-y="-8"
+     inkscape:window-maximized="1"
+     inkscape:current-layer="svg1" />
+  <g
+     id="Consumption"
+     transform="translate(0.163 0.153)">
+    <path
+       id="fill"
+       d="M5.074,29.994a.815.815,0,0,1-.818-.813V15.815H.821a.817.817,0,0,1-.582-1.394L14.417.238A.816.816,0,0,1,15,0a.792.792,0,0,1,.575.238L29.757,14.421a.816.816,0,0,1-.58,1.394H25.742V29.18a.816.816,0,0,1-.818.813Z"
+       transform="translate(-0.004 -0.002)"
+       fill="rgba(243,115,32,0.21)"
+       opacity="0" />
+    <path
+       id="home_stroke"
+       data-name="home stroke"
+       d="M5.072,30a.818.818,0,0,1-.818-.818V15.816H.818a.818.818,0,0,1-.579-1.4L14.42.24a.818.818,0,0,1,1.157,0l14.18,14.18a.818.818,0,0,1-.579,1.4H25.742V29.179a.818.818,0,0,1-.818.818ZM24.106,28.36V15a.818.818,0,0,1,.818-.818H27.2L15,1.975l-12.2,12.2H5.072A.818.818,0,0,1,5.89,15V28.36h5.452V18.543a.819.819,0,0,1,.818-.818h5.672a.818.818,0,0,1,.818.818V28.36Zm-7.092,0v-9H12.978v9Z"
+       transform="translate(0 -0.003)"
+       fill="#f37320"
+       stroke="#f37320"
+       stroke-linecap="round"
+       stroke-width="0.3" />
+  </g>
+</svg>
