@@ -25,7 +25,7 @@
                   max_value: 255
                   radius: 10px
                   knob:
-                    bg_color: White
+                    bg_color: white
                     radius: 2px
                     pad_left: -3px
                     pad_right: -3px
@@ -33,7 +33,7 @@
                     pad_bottom: -18px
                   indicator:
                     radius: 0px
-                    bg_color: Gray
+                    bg_color: gray
                   on_release:
                     - homeassistant.action:
                         action: light.turn_on

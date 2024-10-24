@@ -13,11 +13,11 @@ substitutions:
 
   icon_font: light40
   text_font: roboto24
-  button_on_color: "Dark_Orange"
-  icon_on_color: "Yellow"
-  button_off_color: "Very_Dark_Gray"
-  icon_off_color: "White"
-  button_text_color: "White"
+  button_on_color: "burnt_sienna"
+  icon_on_color: "yellow"
+  button_off_color: "verydarkgray"
+  icon_off_color: "white"
+  button_text_color: "white"
   button_height_single: '109px'
   button_height_double: '228px'
   button_width: '150px'

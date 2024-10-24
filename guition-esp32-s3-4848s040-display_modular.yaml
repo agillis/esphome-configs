@@ -20,8 +20,8 @@ substitutions:
   text_font: roboto24
   screen_height: '480px'
   screen_width: '480px'
-  button_on_color: "Burnt_Sienna"
-  button_off_color: "Very_Dark_Gray"
+  button_on_color: "burntsienna"
+  button_off_color: "verydarkgray"
   icon_on_color: "yellow"
   icon_off_color: "gray"
   label_on_color: "white"
