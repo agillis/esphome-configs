@@ -7,8 +7,8 @@
       height: $button_height_single
       pad_all: 10px
       shadow_width: 0 # This is required even though the default is supposed to be 0
-      bg_color: verydarkgray
-      text_color: Gray
+      bg_color: very_dark_gray
+      text_color: gray
       checked:
         bg_color: $button_on_color
-        text_color: Gray
+        text_color: gray
