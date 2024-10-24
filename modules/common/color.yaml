@@ -1,6 +1,8 @@
 color:
     - id: burnt_sienna
       hex: 'CC5E14'
+    - id: very_dark_gray
+      hex: '313131'      
     - id: ep_orange
       hex: 'f37320'
     - id: ep_blue
