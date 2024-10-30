@@ -4,7 +4,6 @@
 esphome:
   name: "${name}"
   friendly_name: "${friendly_name}"
-  min_version: 2024.7.0  
   project:
     name: "${project_name}"
     version: "${project_version}"    
@@ -20,7 +19,6 @@ esp32:
   flash_size: 16MB
   framework:
     type: esp-idf
-# Required to achieve sufficient PSRAM bandwidth
     sdkconfig_options:
       COMPILER_OPTIMIZATION_SIZE: y    
       CONFIG_ESP32S3_DEFAULT_CPU_FREQ_240: y
@@ -66,7 +64,7 @@ light:
   - platform: monochromatic # Define a monochromatic, dimmable light for the backlight
     output: gpio_backlight_pwm
     name: Display Backlight
-    id: back_light
+    id: display_backlight
     restore_mode: ALWAYS_ON
 
 #-------------------------------------------
@@ -82,8 +80,6 @@ touchscreen:
   transform:
     mirror_x: false
     mirror_y: false
-  id: my_touchscreen
-  display: my_display
 
   on_touch:
     - logger.log:
@@ -102,7 +98,6 @@ touchscreen:
 #-------------------------------------------
 display:
   - platform: rpi_dpi_rgb
-    id: my_display
     color_order: RGB
     invert_colors: True
     update_interval: never
