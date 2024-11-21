@@ -6,6 +6,6 @@ This is a really great little screen. I have a basic getting started config and 
 
 ### For ESPHome SDL venv
 
-Requires: pillow, cairosvg
+Additional Requirements: cairosvg
 
-`pip install esphome pillow cairosvg`
+`pip install esphome cairosvg`
