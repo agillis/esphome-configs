@@ -19,7 +19,7 @@ substitutions:
   screen_width: "800px"
   sdl_height: "480"
   sdl_width: "800"  
-  button_on_color: "Burnt_Sienna"
+  button_on_color: "burnt_sienna"
   button_off_color: "Very_Dark_Gray"
   icon_on_color: "yellow"
   icon_off_color: "gray"
