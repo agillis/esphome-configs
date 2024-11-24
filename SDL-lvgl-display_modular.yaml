@@ -102,6 +102,7 @@ packages:
 #  hardware: !include modules/hardware/guition-esp32-s3-4848s040.yaml
   hardware: !include modules/hardware/SDL-lvgl.yaml
   colors: !include modules/common/color.yaml
+  fonts: !include modules/common/fonts.yaml  
   time: !include modules/lvgl/lvgl_time_homeassistant.yaml
   sensors: !include modules/lvgl/lvgl_sensors_base-SDL.yaml
 
@@ -187,40 +188,4 @@ image:
     type: RGB565
     use_transparency: true
 
-font:
-  - file: "gfonts://Roboto"
-    id: roboto18
-    size: 18
-    bpp: 8
-    extras:
-      # http://materialdesignicons.com/cdn/7.4.47/
-      - file: 'https://github.com/Templarian/MaterialDesign-Webfont/raw/v7.4.47/fonts/materialdesignicons-webfont.ttf'
-        glyphs: [
-          "\U000F004B",
-          "\U0000f0ed",
-          "\U000F006E",
-          "\U000F012C",
-          "\U000F179B",
-          "\U000F0748",
-          "\U000F1A1B",
-          "\U000F02DC",
-          "\U000F0A02",
-          "\U000F035F",
-          "\U000F0156",
-          "\U000F0C5F",
-          "\U000f0084",
-          "\U000f0091",
-        ]
 
-  # http://materialdesignicons.com/cdn/7.4.47/
-  - file: 'https://github.com/Templarian/MaterialDesign-Webfont/raw/v7.4.47/fonts/materialdesignicons-webfont.ttf'
-    id: light24
-    size: 24
-    bpp: 8
-    glyphs: [
-      "\U000F0335",  # mdi-lightbulb
-      "\U000F0769",  # mdi-ceiling-light
-      "\U000F06B5",  # mdi-lamp
-      "\U000F08DD",  # mdi-floor-lamp
-      "\U000F12BA",  # mdi-string-lights
-    ]

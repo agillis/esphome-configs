@@ -34,7 +34,8 @@ packages:
   common_files:
     url: https://github.com/agillis/esphome-configs
     ref: main # optional
-    files: [modules/common/color.yaml]
+    files: [modules/common/color.yaml,
+            modules/common/fonts.yaml]
 
 api:
   encryption:
@@ -265,30 +266,7 @@ image:
     resize: 470x95
     use_transparency: true
 
-font:
-  - file: "gfonts://Roboto"
-    id: roboto24
-    size: 24
-    bpp: 4
-    extras:
-      # http://materialdesignicons.com/cdn/7.4.47/
-      - file: 'https://github.com/Templarian/MaterialDesign-Webfont/raw/v7.4.47/fonts/materialdesignicons-webfont.ttf'
-        glyphs: [
-          "\U000F004B",
-          "\U0000f0ed",
-          "\U000F006E",
-          "\U000F012C",
-          "\U000F179B",
-          "\U000F0748",
-          "\U000F1A1B",
-          "\U000F02DC",
-          "\U000F0A02",
-          "\U000F035F",
-          "\U000F0156",
-          "\U000F0C5F",
-          "\U000f0084",
-          "\U000f0091",
-        ]
+
 
 
 

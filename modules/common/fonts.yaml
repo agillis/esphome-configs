@@ -1,0 +1,46 @@
+font:
+  - file: "gfonts://Roboto"
+    id: roboto24
+    size: 24
+    bpp: 8
+
+  - file: "gfonts://Roboto"
+    id: roboto18
+    size: 18
+    bpp: 8
+
+  # http://materialdesignicons.com/cdn/7.4.47/
+  - file: 'https://github.com/Templarian/MaterialDesign-Webfont/raw/v7.4.47/fonts/materialdesignicons-webfont.ttf'
+    id: light40
+    size: 40
+    bpp: 8
+    glyphs: [
+      "\U000F0335",  # mdi-lightbulb
+      "\U000F0769",  # mdi-ceiling-light
+      "\U000F06B5",  # mdi-lamp
+      "\U000F08DD",  # mdi-floor-lamp
+      "\U000F12BA",  # mdi-string-lights
+      "\U000F0914",  # mdi-track-light
+      "\U000F1A2F",  # mdi-bulkhead_light:    
+      "\U000F07D6",  # mdi-led-strip
+      "\U000F1020",  # mdi-coach-lamp
+      "\U000F1798",  # mdi-ceiling-fan-light
+    ]
+    
+  # http://materialdesignicons.com/cdn/7.4.47/
+  - file: 'https://github.com/Templarian/MaterialDesign-Webfont/raw/v7.4.47/fonts/materialdesignicons-webfont.ttf'
+    id: light24
+    size: 24
+    bpp: 8
+    glyphs: [
+      "\U000F0335",  # mdi-lightbulb
+      "\U000F0769",  # mdi-ceiling-light
+      "\U000F06B5",  # mdi-lamp
+      "\U000F08DD",  # mdi-floor-lamp
+      "\U000F12BA",  # mdi-string-lights
+      "\U000F0914",  # mdi-track-light
+      "\U000F1A2F",  # mdi-bulkhead_light:    
+      "\U000F07D6",  # mdi-led-strip
+      "\U000F1020",  # mdi-coach-lamp
+      "\U000F1798",  # mdi-ceiling-fan-light
+    ]    
