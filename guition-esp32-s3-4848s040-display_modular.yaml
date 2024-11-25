@@ -64,11 +64,6 @@ globals:
     restore_value: false
     initial_value: 'false'
     
-# We need this until 2024.11.0
-external_components:
-  - source: github://pr#7631
-    components: [ image, lvgl ]    
-
 packages:
   base: !include modules/common_base.yaml
   webserver: !include modules/wifi_base.yaml

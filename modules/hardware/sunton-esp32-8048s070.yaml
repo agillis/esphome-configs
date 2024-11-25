@@ -4,6 +4,7 @@
 esphome:
   name: "${name}"
   friendly_name: "${friendly_name}"
+  min_version: 2024.11.0
   project:
     name: "${project_name}"
     version: "${project_version}"    
