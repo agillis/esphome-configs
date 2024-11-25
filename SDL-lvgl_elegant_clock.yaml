@@ -1,0 +1,272 @@
+substitutions:
+  name: "sdl-lvgl-clock"
+  friendly_name: "SDL LVGL 480px clock test"
+  device_description: "SDL LVGL 480px X 480px Elegant clock"
+
+esphome:
+  name: "${name}"
+  friendly_name: "${friendly_name}"
+
+  on_boot:
+    priority: -100
+    then:
+      - delay: 60s
+      - lvgl.widget.hide: boot_screen
+
+host:
+  mac_address: "62:23:45:AF:B3:01"
+
+touchscreen:
+  - platform: sdl
+    id: my_touchscreen
+    display: my_display
+
+display:
+  - platform: sdl
+    id: my_display
+    update_interval: never
+    auto_clear_enabled: false
+    dimensions:
+      width: 480
+      height: 480
+
+packages:
+  common_files:
+    url: https://github.com/agillis/esphome-configs
+    ref: main # optional
+    files: [modules/common/color.yaml,
+            modules/common/fonts.yaml]
+
+api:
+  encryption:
+    key: !secret encryption_key
+
+logger:
+
+time:
+  - platform: homeassistant
+    id: homeassistant_time
+    on_time_sync:
+      - script.execute: time_update
+      - if:
+          condition:
+            lambda: 'return id(device_last_restart).state == "";'
+          then:
+            - text_sensor.template.publish:
+                id: device_last_restart
+                state: !lambda 'return id(homeassistant_time).now().strftime("%a %d %b %Y - %I:%M:%S %p");'
+
+    # Update the clock every second
+    on_time:
+      - seconds: "*"
+        then:
+          - script.execute: time_update
+
+script:
+  - id: time_update
+    then:
+      - lvgl.indicator.update:
+          id: second_hand
+          value: !lambda |-
+            return id(homeassistant_time).now().second;
+      - lvgl.indicator.update:
+          id: minute_hand
+          value: !lambda |-
+            return id(homeassistant_time).now().minute;
+      - lvgl.indicator.update:
+          id: hour_hand
+          value: !lambda |-
+            auto now = id(homeassistant_time).now();
+            return std::fmod(now.hour, 12) * 60 + now.minute;
+
+
+text_sensor:
+  - platform: version
+    id: esphome_version
+    name: "ESPHome Version"
+  - platform: template
+    name: 'Last Restart'
+    id: device_last_restart
+    icon: mdi:clock
+    entity_category: diagnostic
+
+binary_sensor:
+  - platform: status
+    name: "Status"
+    entity_category: diagnostic
+
+# -------------------------------------------
+# LVGL Buttons
+# -------------------------------------------
+lvgl:
+  displays:
+    - my_display
+  touchscreens:
+    - my_touchscreen
+
+  style_definitions:
+    - id: no_checked_color
+      bg_color: 0xCC5E14
+      text_color: 0xB6B6B6
+
+
+  theme:
+    button:
+      text_font: roboto24
+      scroll_on_focus: true
+      radius: 25px
+      width: 150px
+      height: 109px
+      pad_all: 10px
+      shadow_width: 0 # This is required even though the default is suposed to be 0
+      bg_color: 0x313131
+      text_color: 0xB6B6B6
+      checked:
+        bg_color: 0xCC5E14
+        text_color: 0xB6B6B6
+
+  page_wrap: true
+
+  top_layer:
+    widgets:
+      - obj:
+          id: boot_screen
+          layout:
+            type: flex
+            flex_flow: COLUMN_WRAP
+          width: 480px
+          height: 480px
+          text_font: roboto24
+          scrollbar_mode: 'off'
+          bg_color: White
+          bg_opa: COVER
+          radius: 0
+          pad_all: 5
+          widgets:
+            - image:
+                src: boot_logo
+                pad_bottom: 10
+            - label:
+                id: ip_address_label
+                text: "IP Address:"
+            - label:
+                text: "MAC Address:"
+            - label:
+                id: connected_ssid_label
+                text: "Connected SSID:"
+            - label:
+                id: wifi_signal_db_percent_label
+                text: "WiFi Strength: 0%"
+            - label:
+                text:
+                  format: "ESPHome Version: %s"
+                  args: [ 'id(esphome_version).state.c_str()' ]
+            - obj:
+               radius: 0
+               pad_all: 0
+               border_width: 0
+               width: 470px
+               flex_grow: 1
+               widgets:
+                 - button:
+                    align: bottom_right
+                    radius: 15
+                    width: 100
+                    height: 60
+                    checkable: true
+                    widgets:
+                     - label:
+                         text_color: White
+                         align: center
+                         text: "OK"
+                    on_press:
+                     - lvgl.widget.hide: boot_screen
+
+  pages:
+    - id: main_page
+      width: 100%
+      bg_color: Black
+      widgets:
+          # Outer Clock Container
+          - obj:
+              height: 470
+              width: 470
+              align: center
+              pad_all: 4
+              bg_color: Black
+              border_width: 0
+              widgets:
+              - meter:
+                  height: 100%
+                  width: 100%
+                  align: center
+                  bg_color: White
+
+                  scales:
+                    # Minor ticks
+                    - ticks:
+                        width: 2
+                        count: 61
+                        length: 10
+                        color: Black
+                      range_from: 0
+                      range_to: 60
+                      angle_range: 360
+                      rotation: 270
+
+                      # Minuite hand
+                      indicators:
+                        - line:
+                            id: minute_hand
+                            width: 3
+                            color: Black
+                            r_mod: -1
+                    # Major ticks
+                    - angle_range: 330
+                      rotation: 300
+                      range_from: 1
+                      range_to: 12
+                      ticks:
+                        width: 3
+                        count: 12
+                        length: 20
+                        color: Black
+
+                    # Hour hand
+                    - angle_range: 360
+                      rotation: 270
+                      range_from: 0
+                      range_to: 720
+                      indicators:
+                        - line:
+                            id: hour_hand
+                            width: 4
+                            color: Black
+                            r_mod: -40
+
+                    # Second hand
+                    - angle_range: 360
+                      rotation: 270
+                      range_from: 0
+                      range_to: 60
+                      indicators:
+                        - line:
+                            id: second_hand
+                            width: 2
+                            color: Red
+                            r_mod: -10
+
+# -------------------------------------------
+# Graphics and Fonts
+# -------------------------------------------
+image:
+  - file: https://esphome.io/_static/logo-text-on-light.svg
+    id: boot_logo
+    type: RGB565
+    resize: 470x95
+    use_transparency: true
+
+
+
+
+
