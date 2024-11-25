@@ -4,9 +4,11 @@ color:
     - id: very_dark_gray
       hex: '313131'      
     - id: ep_orange
-      hex: 'f37320'
+      hex: 'F37320'
     - id: ep_blue
-      hex: '01b4de'      
+      hex: '01B4DE'
+    - id: ep_green
+      hex: '7ACf38'       
 
 # The standard RGB color table is already in ESPHome!
 # RGB color table
