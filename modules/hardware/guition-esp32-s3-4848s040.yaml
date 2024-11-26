@@ -6,9 +6,6 @@ esphome:
   friendly_name: "${friendly_name}"
   min_version: 2024.11.0
   #name_add_mac_suffix: true
-  project:
-    name: "${project_name}"
-    version: "${project_version}"    
   platformio_options:
     board_build.flash_mode: dio
 
