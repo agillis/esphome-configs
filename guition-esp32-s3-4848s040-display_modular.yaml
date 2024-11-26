@@ -2,8 +2,6 @@ substitutions:
   name: "guition-esp32-s3-4848s040"
   friendly_name: "Guition480"
   device_description: "Guition ESP32-S3-4848S040 480*480 Smart Screen"
-  project_name: "Guition.ESP32_S3_4848S040"
-  project_version: "1.0.0"
 
   lightbulb:         "\U000F0335"
   ceiling_light:     "\U000F0769"
@@ -95,7 +93,6 @@ text_sensor:
 
 sensor:
   - !include { file: modules/lvgl/dimmer_light_state.yaml, vars: { id: 4 } }
-
 
 #-------------------------------------------
 # LVGL pages and Buttons
