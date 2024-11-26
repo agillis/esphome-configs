@@ -2,8 +2,6 @@ substitutions:
   name: "sunton-esp32-8048s070"
   friendly_name: "Sunton800"
   device_description: "Sunton ESP32-S3-8048S070 480px X 800px Smart Screen"
-  project_name: "Sunton.ESP32_S3_8048S070"
-  project_version: "0.9.0"
 
   lightbulb:         "\U000F0335"
   ceiling_light:     "\U000F0769"
@@ -45,18 +43,12 @@ substitutions:
   button_1_icon: $lightbulb
   button_1_device: "switch.athom_smart_plug_v3_50ebc0_switch"
 
-
 globals:
 # Keeps track of late night mode for turning off the backlight
   - id: late_night_mode
     type: bool
     restore_value: false
     initial_value: 'false'
-    
-# We need this until 2024.11.0
-external_components:
-  - source: github://pr#7631
-    components: [ image, lvgl ]    
 
 packages:
   base: !include modules/common_base.yaml
@@ -81,8 +73,6 @@ esphome:
 # Update button state from Home Assistant
 text_sensor:
   - !include { file: modules/lvgl/basic_switch_button_state.yaml, vars: { id: 1 } }
-
-
 
 #-------------------------------------------
 # LVGL pages and Buttons
@@ -127,7 +117,7 @@ lvgl:
         - button: !include { file: modules/lvgl/basic_switch_button.yaml, vars: { id: 1, height: $button_height_single } }
 
 #-------------------------------------------
-# Graphics and Fonts
+# Graphics
 #-------------------------------------------
 image:
   - file: https://esphome.io/_static/logo-text-on-light.svg
