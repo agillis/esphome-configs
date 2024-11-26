@@ -2,8 +2,6 @@ substitutions:
   name: "guition-esp32-s3-4848s040"
   friendly_name: "Guition480"
   device_description: "Guition ESP32-S3-4848S040 480*480 Smart Screen"
-  project_name: "Guition.ESP32_S3_4848S040"
-  project_version: "0.9.1"
 
   lightbulb:     "\U000F0335"
   ceiling_light: "\U000F0769"
@@ -43,14 +41,12 @@ wifi:
   ssid: !secret wifi_ssid
   password: !secret wifi_password
 
-
 packages:
   common_files:
     url: https://github.com/agillis/esphome-configs
     files: [modules/common/color.yaml,
             modules/common/fonts.yaml,
-            modules/hardware/guition-esp32-s3-4848s040.yaml
-    ]
+            modules/hardware/guition-esp32-s3-4848s040.yaml]
 
 time:
   - platform: sntp
@@ -103,7 +99,6 @@ binary_sensor:
   - platform: status
     name: "Status"
     entity_category: diagnostic
-
 
 #-------------------------------------------
 # LVGL Buttons
@@ -199,11 +194,3 @@ light:
             id: lv_button_1
             state:
               checked: false
-
-#-------------------------------------------
-# Graphics and Fonts
-#-------------------------------------------
-
-
-
-
