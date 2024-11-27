@@ -22,7 +22,19 @@ external_components:
     components: [tdisplays3]  
 
 preferences:
-  flash_write_interval: 1min      
+  flash_write_interval: 1min
+
+binary_sensor:
+  - platform: gpio
+    pin: 
+      number: GPIO0
+      inverted: true
+    name: "Button 1"
+  - platform: gpio
+    pin: 
+      number: GPIO14
+      inverted: true
+    name: "Button 2"
 
 output:
   - platform: ledc
