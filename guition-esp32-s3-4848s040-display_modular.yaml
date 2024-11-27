@@ -38,11 +38,13 @@ substitutions:
   screen_wake_hour: '5'
   screen_wake_minute: '30'
 
+  # Button 1 is a local relay
   button_1_name: "Local Light"
   button_1_id: local_light
   button_1_icon: $lightbulb
   button_1_device: "internal_relay_1"
 
+  # Button 2 is a switch (some devcies show up as switches some as lights make sure you use the corisponding file)
   button_2_name: "Button 2"
   button_2_id: couch_lamp
   button_2_icon: $lightbulb
@@ -50,6 +52,7 @@ substitutions:
 
   # Button 3 is an empty object that requires no settings. It just pushes everything down one button
 
+  # Button 4 is dimmable light
   button_4_name: "RGB light"
   button_4_id: rgb_light
   button_4_icon: $string_lights
@@ -89,14 +92,13 @@ light:
 # Update button state from Home Assistant
 text_sensor:
   - !include { file: modules/lvgl/basic_switch_button_state.yaml, vars: { id: 2 } }
-  - !include { file: modules/lvgl/basic_switch_button_state.yaml, vars: { id: 4 } }
 
 sensor:
   - !include { file: modules/lvgl/dimmer_light_state.yaml, vars: { id: 4 } }
 
-#-------------------------------------------
+# -------------------------------------------------------------------------
 # LVGL pages and Buttons
-#-------------------------------------------
+# -------------------------------------------------------------------------
 
 # Wake screen on touch
 touchscreen:
@@ -144,9 +146,9 @@ lvgl:
         - button: !include { file: modules/lvgl/transparent_empty_button.yaml, vars: { id: 3, height: $button_height_single } }
         - button: !include { file: modules/lvgl/dimmer_light_button.yaml, vars: { id: 4, height: $button_height_double } }
 
-#-------------------------------------------
-# Graphics and Fonts
-#-------------------------------------------
+# -------------------------------------------------------------------------
+# Graphic assets
+# -------------------------------------------------------------------------
 image:
   - file: https://esphome.io/_static/logo-text-on-light.svg
     id: boot_logo
