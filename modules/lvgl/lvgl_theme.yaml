@@ -1,4 +1,20 @@
 ---
+    obj:
+      border_width: 0
+      pad_all: 0
+      scrollable: false
+#      outline_width: 1
+#      outline_color: red
+    label:
+      border_width: 0
+      scrollable: false
+#      outline_width: 1
+#      outline_color: red
+    image:
+      border_width: 0
+      scrollable: false
+#      outline_width: 1
+#      outline_color: red
     button:
       text_font: $text_font
       scroll_on_focus: true
