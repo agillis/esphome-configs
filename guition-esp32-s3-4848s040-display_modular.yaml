@@ -44,7 +44,7 @@ substitutions:
   button_1_icon: $lightbulb
   button_1_device: "internal_relay_1"
 
-  # Button 2 is a switch (some devcies show up as switches some as lights make sure you use the corisponding file)
+  # Button 2 is a switch (some devcies show up as switches some as lights make sure you use the corresponding file)
   button_2_name: "Button 2"
   button_2_id: couch_lamp
   button_2_icon: $lightbulb
