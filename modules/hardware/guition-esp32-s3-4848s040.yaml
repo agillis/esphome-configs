@@ -45,6 +45,14 @@ output:
     platform: gpio
     pin: 40
 
+    # Some versions of this switch have 3 relays
+  - id: internal_relay_2
+    platform: gpio
+    pin: 2
+  - id: internal_relay_3
+    platform: gpio
+    pin: 1
+
 light:
   - platform: monochromatic
     output: GPIO38
