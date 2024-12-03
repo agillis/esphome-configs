@@ -73,7 +73,7 @@ packages:
   fonts: !include modules/common/fonts.yaml  
   time: !include modules/lvgl/lvgl_time_sntp.yaml
   sensors: !include modules/lvgl/lvgl_sensors_base.yaml
-  touchscreen: !include esphome-configs/modules/lvgl/lvgl_touchscreen.yaml
+  touchscreen: !include modules/lvgl/lvgl_touchscreen.yaml
   
   # Update button and relay state from Home Assistant
   button_1_sensor: !include { file: modules/sensors/basic_local_relay_button_state.yaml, vars: { id: 1 } }
