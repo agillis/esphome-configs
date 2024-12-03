@@ -73,6 +73,12 @@ packages:
   fonts: !include modules/common/fonts.yaml  
   time: !include modules/lvgl/lvgl_time_sntp.yaml
   sensors: !include modules/lvgl/lvgl_sensors_base.yaml
+  touchscreen: !include esphome-configs/modules/lvgl/lvgl_touchscreen.yaml
+  
+  # Update button and relay state from Home Assistant
+  button_1_sensor: !include { file: modules/sensors/basic_local_relay_button_state.yaml, vars: { id: 1 } }
+  button_2_sensor: !include { file: modules/sensors/basic_switch_or_light_button_state.yaml, vars: { id: 2 } } 
+  button_4_sensor: !include { file: modules/sensors/dimmer_light_state.yaml, vars: { id: 4 } }  
 
 esphome:
   on_boot:
@@ -82,39 +88,8 @@ esphome:
       - lvgl.widget.hide: boot_screen
 
 # -------------------------------------------------------------------------
-# Button state - Update state for Homeassistant objects and internal relays
-# -------------------------------------------------------------------------
-
-# Internal Relays defined as lights go here
-light:
-  - !include { file: modules/lvgl/basic_local_relay_button_state.yaml, vars: { id: 1 } }
-
-# Update button state from Home Assistant
-text_sensor:
-  - !include { file: modules/lvgl/basic_switch_button_state.yaml, vars: { id: 2 } }
-
-sensor:
-  - !include { file: modules/lvgl/dimmer_light_state.yaml, vars: { id: 4 } }
-
-# -------------------------------------------------------------------------
 # LVGL pages and Buttons
 # -------------------------------------------------------------------------
-
-# Wake screen on touch
-touchscreen:
-  on_touch:
-    then:
-      - logger.log: "LVGL is active"
-      - lvgl.resume:
-      - if:
-      # Only turn on baclight and set to 50% if late_night_mode is on
-          condition:
-            - lambda: |-
-                return id(late_night_mode);
-          then:
-            - light.turn_on:
-                id: display_backlight
-                brightness: 50%
 
 # Main LVGL section
 lvgl:

@@ -1,0 +1,31 @@
+---
+# Local relay as light or switch - Define its settings in substitutions
+light:
+  - platform: binary
+    output: $button_${id}_device
+    name: $button_${id}_name
+    id: local_light_${id}
+    on_turn_on:
+      then:
+        - lvgl.widget.update:
+            id: lv_button_${id}_icon
+            text_color: $icon_on_color
+        - lvgl.widget.update:
+            id: lv_button_${id}_label
+            text_color: $label_on_color
+        - lvgl.widget.update:
+            id: lv_button_${id}
+            state:
+              checked: true
+    on_turn_off:
+      then:
+        - lvgl.widget.update:
+            id: lv_button_${id}_icon
+            text_color: $icon_off_color
+        - lvgl.widget.update:
+            id: lv_button_${id}_label
+            text_color: $label_off_color
+        - lvgl.widget.update:
+            id: lv_button_${id}
+            state:
+              checked: false
