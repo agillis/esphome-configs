@@ -54,16 +54,6 @@ logger:
 
 web_server:
 
-wifi:
-  # This spawns an AP with the device name and mac address with no password.
-  ap: {}
-  # Allow rapid re-connection to previously connect WiFi SSID, skipping scan of all SSID
-  fast_connect: "${wifi_fast_connect}"
-  # Define dns domain / suffix to add to hostname
-  domain: "${dns_domain}"
-
-captive_portal:
-
 uart:
   rx_pin: GPIO20
   baud_rate: 4800
@@ -210,6 +200,9 @@ light:
       number: GPIO6
 
 text_sensor:
+  - platform: version
+    name: ESPHome Version
+
   - platform: wifi_info
     ip_address:
       name: "IP Address"
