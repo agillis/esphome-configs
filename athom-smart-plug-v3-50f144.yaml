@@ -12,7 +12,6 @@ esphome:
 
 api:
 
-
 wifi:
   ssid: !secret wifi_ssid
   password: !secret wifi_password
@@ -28,7 +27,7 @@ sun:
 
 time:
   - platform: sntp
-    id: sntp_time
+    id: !extend sntp_time
     update_interval: 360min   # Change sync interval from default 5min to 6 hours
     on_time_sync:
       then:

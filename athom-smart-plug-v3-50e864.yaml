@@ -6,6 +6,9 @@ substitutions:
 packages:
   Athom_Technology.Smart_Plug_V3: !include modules/athom-smart-plug.yaml
 
+# captive_portal: !remove
+# web_server: !remove
+
 esphome:
   name: ${name}
   name_add_mac_suffix: false
@@ -25,7 +28,7 @@ sensor:
 
 time:
   - platform: sntp
-    id: sntp_time
+    id: !extend sntp_time
     update_interval: 360min   # Change sync interval from default 5min to 6 hours   
     on_time_sync:
       then:
