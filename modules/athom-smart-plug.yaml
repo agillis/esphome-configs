@@ -10,7 +10,7 @@ substitutions:
   # Project Name
   project_name: "Athom Technology.Smart Plug V3"
   # Projection version denotes the release version of the yaml file, allowing checking of deployed vs latest version
-  project_version: "v1.0.7"
+  project_version: "v2.0.0"
   # Restore the relay (GPO switch) upon reboot to state:
   relay_restore_mode: RESTORE_DEFAULT_ON
   # Set the update interval for sensors
@@ -18,9 +18,9 @@ substitutions:
   # Current Limit in Amps. AU Plug = 10. IL, BR, EU, UK, US Plug = 16.
   current_limit : "16"
   # Define a domain for this device to use. i.e. iot.home.lan (so device will appear as athom-smart-plug-v2.iot.home.lan in DNS/DHCP logs)
-  dns_domain: ".local"
+  #dns_domain: ".local"
   # Set timezone of the smart plug. Useful if the plug is in a location different to the HA server. Can be entered in unix Country/Area format (i.e. "Australia/Sydney")
-  timezone: ""
+  timezone: "America/New_York"
   # Set the duration between the sntp service polling ntp.org servers for an update
   sntp_update_interval: 6h
   # Network time servers for your region, enter from lowest to highest priority. To use local servers update as per zones or countries at: https://www.ntppool.org/zone/@
@@ -46,7 +46,7 @@ esphome:
   comment: "${device_description}"
   area: "${room}"  
   name_add_mac_suffix: true
-  min_version: 2024.6.0
+  min_version: 2025.7.0
   project:
     name: "${project_name}"
     version: "${project_version}"
@@ -83,7 +83,7 @@ esp32:
   flash_size: 4MB
   variant: ESP32C3
   framework:
-    type: arduino
+    type: esp-idf
     version: recommended
 
 preferences:
@@ -93,6 +93,7 @@ api:
 
 ota:
   - platform: esphome
+  - platform: web_server
 
 logger:
   level: ${log_level}
@@ -103,7 +104,7 @@ mdns:
 
 web_server:
   port: 80
-#  version: 3
+  version: 3
 
 network:
   enable_ipv6: ${ipv6_enable}
@@ -114,7 +115,7 @@ wifi:
   # Allow rapid re-connection to previously connect WiFi SSID, skipping scan of all SSID
   fast_connect: "${wifi_fast_connect}"
   # Define dns domain / suffix to add to hostname
-  domain: "${dns_domain}"
+  #domain: "${dns_domain}"
 
 captive_portal:
 
@@ -187,16 +188,19 @@ sensor:
     name: "WiFi Signal dB"
     id: wifi_signal_db
     update_interval: 60s
-    entity_category: "diagnostic"
-
+    internal: true
+    
+  # Reports the WiFi signal strength in %
   - platform: copy
+    id: wifi_signal_db_percent
     source_id: wifi_signal_db
-    name: "WiFi Signal Percent"
+    name: "WiFi Strength"
+    icon: mdi:wifi
     filters:
       - lambda: return min(max(2 * (x + 100.0), 0.0), 100.0);
-    unit_of_measurement: "Signal %"
-    entity_category: "diagnostic"
-    device_class: ""
+      - throttle: 60s
+    unit_of_measurement: "%"
+    entity_category: diagnostic
 
   - platform: cse7766
     id: athom_cse7766
@@ -338,7 +342,6 @@ text_sensor:
     icon: mdi:clock
     entity_category: diagnostic
 #    device_class: timestamp
-
 
 time:
   - platform: sntp

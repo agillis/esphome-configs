@@ -1,14 +1,10 @@
-substitutions:
-  name: athom-smart-plug-v3-50f144
-  friendly_name: Fairy Light
-
 packages:
   Athom_Technology.Smart_Plug_V3: !include modules/athom-smart-plug.yaml
 
 esphome:
-  name: ${name}
+  name: athom-smart-plug-v3-50f144
   name_add_mac_suffix: false
-  friendly_name: ${friendly_name}
+  friendly_name: Fairy Light
 
 api:
 
@@ -29,8 +25,11 @@ time:
   - platform: sntp
     id: !extend sntp_time
     update_interval: 360min   # Change sync interval from default 5min to 6 hours
+    timezone: "America/New_York"
     on_time_sync:
       then:
+        - delay: 60s
+        - logger.log: "Synchronized SNTP clock"
         - if:   # Publish the time the device was last restarted, but only once.
             condition:
               lambda: 'return id(device_last_restart).state == "";'

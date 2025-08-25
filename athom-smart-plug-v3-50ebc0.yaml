@@ -20,6 +20,7 @@ time:
   - platform: sntp
     id: !extend sntp_time
     update_interval: 360min   # Change sync interval from default 5min to 6 hours
+    timezone: "America/New_York" 
     on_time_sync:
       then:
         - if:   # Publish the time the device was last restarted, but only once.
