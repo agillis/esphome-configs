@@ -1,8 +1,8 @@
 substitutions:
-  name: athom-rgb-light-d93a20
+  name: kauf-plug-d67419
 
 packages:
-  athom.rgb-light: !include modules/athom-rgb-light.yaml
+  kauf.plug: !include modules/kauf-plf12.yaml
 
 esphome:
   name: ${name}
