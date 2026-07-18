@@ -33,6 +33,17 @@ esphome:
     - priority: 400
       then:
         - script.execute: update_loading_page
+    # Standalone (no HA): once the clock is set, start the data fetches and
+    # dismiss the boot screen. Weather self-triggers inside its own module.
+    - priority: -200
+      then:
+        - wait_until:
+            condition:
+              lambda: 'return id(system_time).now().is_valid();'
+            timeout: 90s
+        - script.execute: fetch_noaa_datums
+        - script.execute: fetch_noaa_tides
+        - lvgl.widget.hide: loading_page
 
 logger:
   level: debug
@@ -44,6 +55,9 @@ logger:
 http_request:
   verify_ssl: false
   ca_certificate_path: /etc/ssl/certs/ca-certificates.crt
+
+# host time platform needs api on the SDL/host build (the P4 uses sntp and no api)
+api:
 
 # Time update script - This is run once per second. Use it to update any time related labels.
 script:
@@ -79,7 +93,8 @@ packages:
   hardware: !include esphome-modular-lvgl-buttons/hardware/SDL-lvgl.yaml
   
   # Basic boot screen with ESPHome logo and device diagnostic info
-  loading_screen: !include esphome-modular-lvgl-buttons/pages/loading.yaml
+  # Neutral boot screen (no Home Assistant logo/text; also drops the HA api: block)
+  loading_screen: !include esphome-modular-lvgl-buttons/pages/loading_standalone.yaml
   # info screen - WiFi login, IP address, MAC address etc
   info_screen: !include esphome-modular-lvgl-buttons/pages/info.yaml
 
@@ -106,18 +121,15 @@ packages:
 # Weather packages
   # Display weather forecast using direct HA action (no template sensor needed!)
   # Icons are included automatically in the action file
-  weather_forecast_80: !include
-    file: esphome-modular-lvgl-buttons/ui/weather/forecast.yaml
+  # Weather direct from Pirate Weather (no Home Assistant)
+  pirate_weather: !include
+    file: esphome-modular-lvgl-buttons/ui/weather/pirate_weather.yaml
     vars:
-      size: 100
-      weather_entity: weather.home
-  # Get todays weather and display it (icons included automatically)
-  weather_today_180: !include
-    file: esphome-modular-lvgl-buttons/ui/weather/today.yaml
-    vars:
-      size: 220
-      weather_entity: weather.home
-      weather_summary: sensor.home_hourly_summary
+      pw_key: !secret pirate_weather_key
+      pw_lat: !secret latitude
+      pw_lon: !secret longitude
+      today_size: 220
+      forecast_size: 100
 
 
 # Styles for Weather forecast
