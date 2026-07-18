@@ -13,6 +13,10 @@ substitutions:
   label_off_color: "gray"
   button_text_color: "white"
 
+  # SDL desktop window size (matches the P4-7b 1024x600 panel)
+  screen_width: '1024'
+  screen_height: '600'
+
   # LCD back light modes - Code in backlight_time.yaml
   display_daytime_brightness: "100%"
   display_nighttime_brightness: "50%"
@@ -23,8 +27,8 @@ substitutions:
 
 
 esphome:
-  name: "tide-weather-display"
-  friendly_name: "Tide Clock with weather"
+  name: "tide-weather-display-sdl"
+  friendly_name: "Tide Clock with weather (SDL)"
   on_boot:
     - priority: 400
       then:
@@ -34,7 +38,12 @@ logger:
   level: debug
   logs:
     lvgl: info
-  hardware_uart: UART0
+
+# SDL/host build needs http_request declared here (real hardware pulls it in
+# from the hardware file). HTTPS on host needs the OpenSSL dev headers.
+http_request:
+  verify_ssl: false
+  ca_certificate_path: /etc/ssl/certs/ca-certificates.crt
 
 # Time update script - This is run once per second. Use it to update any time related labels.
 script:
@@ -51,15 +60,15 @@ script:
 packages:
   # Generic configuration for ESP32 screens
   # SDL has no Wi-Fi
-  wifi: !include esphome-modular-lvgl-buttons/common/wifi.yaml
+  # wifi: !include esphome-modular-lvgl-buttons/common/wifi.yaml  # SDL has no Wi-Fi
   # Enable OTA updates with a status screen
-  ota_screen: !include esphome-modular-lvgl-buttons/common/ota.yaml
+  # ota_screen: !include esphome-modular-lvgl-buttons/common/ota.yaml  # no OTA on host
   # All the colors
   theme:  !include esphome-modular-lvgl-buttons/common/theme/index.yaml
   # Some nice basic fonts
   # 1000s of glyphs
   # Some basic sensors
-  sensors: !include esphome-modular-lvgl-buttons/common/sensors_base.yaml
+  sensors: !include esphome-modular-lvgl-buttons/common/sensors_base_sdl.yaml
   # Styles + Themes
   # Use this theme for debugging
   # theme:  !include esphome-modular-lvgl-buttons/common/theme/index_debug.yaml  # uncomment to enable debug outlines
@@ -67,10 +76,7 @@ packages:
   backlight: !include esphome-modular-lvgl-buttons/common/backlight_time.yaml
 
   # Hardware description file
-  hardware: !include
-    file: esphome-modular-lvgl-buttons/hardware/waveshare-esp32-p4-wifi6-touch-lcd-7b.yaml
-    vars:
-      rotation: "180"  # set screen rotation 0, 90, 180, 270
+  hardware: !include esphome-modular-lvgl-buttons/hardware/SDL-lvgl.yaml
   
   # Basic boot screen with ESPHome logo and device diagnostic info
   loading_screen: !include esphome-modular-lvgl-buttons/pages/loading.yaml
