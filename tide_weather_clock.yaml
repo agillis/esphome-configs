@@ -34,13 +34,15 @@ esphome:
     # and dismiss the boot screen. Weather self-triggers inside its module.
     - priority: -200
       then:
+        # Land directly on the main page (info_screen is the first page in the
+        # merged list; without this LVGL would show it at boot).
+        - lvgl.page.show: main_page
         - wait_until:
             condition:
               lambda: 'return id(system_time).now().is_valid();'
             timeout: 90s
         - script.execute: fetch_noaa_datums
         - script.execute: fetch_noaa_tides
-        - lvgl.widget.hide: loading_page
 
 logger:
   level: debug
@@ -86,7 +88,10 @@ packages:
   
   # Basic boot screen with ESPHome logo and device diagnostic info
   # Neutral boot screen (no Home Assistant logo/text; also drops the HA api: block)
-  loading_screen: !include esphome-modular-lvgl-buttons/pages/loading_standalone.yaml
+  loading_screen: !include
+    file: esphome-modular-lvgl-buttons/pages/loading_standalone.yaml
+    vars:
+      boot_screen_hidden: "true"   # skip boot screen; go straight to main page
   # info screen - WiFi login, IP address, MAC address etc
   info_screen: !include esphome-modular-lvgl-buttons/pages/info.yaml
 
